@@ -38,12 +38,15 @@ class ProjectWbsElement(models.Model):
         string='Tasks',
         copy=True
     )
-    nbr_tasks = fields.Integer(string='Number of Tasks',
-                               compute='_count_tasks')
-    nbr_childs = fields.Integer(string='Number of Child WBS Elements',
-                                compute='_count_childs')
-    nbr_docs = fields.Integer(string='Number of Documents',
-                                compute='_count_attached_docs')
+    nbr_tasks = fields.Integer(
+        string='Number of Tasks',
+        compute='_count_tasks')
+    nbr_childs = fields.Integer(
+        string='Number of Child WBS Elements',
+        compute='_count_childs')
+    nbr_docs = fields.Integer(
+        string='Number of Documents',
+        compute='_count_attached_docs')
     color = fields.Integer(string='Color Index')
 
     @api.depends('task_ids')
@@ -105,8 +108,9 @@ class ProjectWbsElement(models.Model):
             ('project_id', 'in', self.ids)])
         domain = [
             '|',
-            '&', ('res_model', '=', 'project.wbs_element'), ('res_id', 'in',
-                                                           self.ids),
+            '&', ('res_model', '=', 'project.wbs_element'), (
+                'res_id', 'in',
+                self.ids),
             '&', ('res_model', '=', 'project.task'), ('res_id', 'in',
                                                       tasks.ids)
         ]
@@ -121,5 +125,5 @@ class ProjectWbsElement(models.Model):
             'view_type': 'form',
             'limit': 80,
             'context': "{'default_res_model': '%s','default_res_id': %d}" % (
-            self._name, res_id)
+                self._name, res_id)
         }
