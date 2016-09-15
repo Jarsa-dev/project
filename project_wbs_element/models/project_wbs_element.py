@@ -11,9 +11,9 @@ class ProjectWbsElement(models.Model):
     _description = "Project WBS Element"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-    code = fields.Char(string='Code')
-    name = fields.Char(string='Name', required=True)
-    description = fields.Text(string='Description')
+    code = fields.Char()
+    name = fields.Char(required=True)
+    description = fields.Text()
     project_id = fields.Many2one(
         comodel_name='project.project',
         string='Project',
