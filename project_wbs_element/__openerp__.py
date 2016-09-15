@@ -6,16 +6,16 @@
     'name': 'Project WBS Element',
     'summary': 'Manage Work Breakdown Structures in your Projects',
     'version': '9.0.1.0.0',
-    'author': 'Eficent Business and IT Consulting Services S.L.,'
-    'Odoo Community Association (OCA), ', 'Jarsa Sistemas S.A. de C.V.'
+    'author': (
+        'Eficent Business and IT Consulting Services S.L.,'
+        'Odoo Community Association (OCA), ', 'Jarsa Sistemas S.A. de C.V.',),
+    'description': 'This module can create an WBS for projects in Odoo',
     'website': 'https://www.odoo-community.org',
     'category': 'Warehouse Management',
     'license': 'AGPL-3',
     'depends': [
         'project',
-        'project_image',
-        'web_gantt8',
-        'project_gantt8'
+        'project_image'
     ],
     'data': [
         'views/project_task_view.xml',
