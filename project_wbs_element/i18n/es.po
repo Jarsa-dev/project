@@ -1,0 +1,338 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* project_wbs_element
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: project_wbs_element_es\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-09-09 22:00+0000\n"
+"PO-Revision-Date: 2016-09-09 17:17-0600\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
+"X-Generator: Poedit 1.6.10\n"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.wbs_element_kanban_view
+msgid "<span class=\"o_label\">Documents</span>"
+msgstr "<span class=\"o_label\">Documentos</span>"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.wbs_element_kanban_view
+msgid "<span class=\"o_label\">Tasks</span>"
+msgstr "<span class=\"o_label\">Tasks</span>"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.view_project_kanban
+#: model:ir.ui.view,arch_db:project_wbs_element.wbs_element_kanban_view
+msgid "<span class=\"o_label\">WBS Elements</span>"
+msgstr "<span class=\"o_label\"> Elementos EDT </span>"
+
+#. module: project_wbs_element
+#: code:addons/project_wbs_element/models/project_task.py:28
+#: code:addons/project_wbs_element/models/project_wbs_element.py:84
+#, python-format
+msgid "A WBS Element that is parent of others cannot have tasks assigned."
+msgstr ""
+"Un elemento EDT que es padre de otros elementos no puede tener tareas "
+"asignadas"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesario"
+
+#. module: project_wbs_element
+#: code:addons/project_wbs_element/models/project_wbs_element.py:115
+#, python-format
+msgid "Attachments"
+msgstr "Adjuntos"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_child_ids
+#: model:ir.ui.view,arch_db:project_wbs_element.project_wbs_element_form_view
+msgid "Child WBS Elements"
+msgstr "Elementos EDT hijos"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_code
+msgid "Code"
+msgstr "Código"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_color
+msgid "Color Index"
+msgstr "Índice de Color "
+
+#. module: project_wbs_element
+#: model:ir.actions.act_window,help:project_wbs_element.open_view_project_wbs_element_all
+msgid "Create a new WBS element."
+msgstr "Crear un nuevo elemento EDT"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,help:project_wbs_element.field_project_wbs_element_message_last_post
+msgid "Date of the last message posted on the record."
+msgstr "Fecha del último mensaje publicado en el registro."
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_description
+#: model:ir.ui.view,arch_db:project_wbs_element.project_wbs_element_form_view
+msgid "Description"
+msgstr "Descripción"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_display_name
+msgid "Display Name"
+msgstr "Nombre Mostrado"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.project_wbs_element_form_view
+msgid ""
+"Follow this project to automatically track the events associated to tasks "
+"and issues of this project."
+msgstr ""
+"Siga este proyecto para darle automáticamente seguimiento a los eventos "
+"asociados a tareas e incidencias del proyecto."
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Socios)"
+
+#. module: project_wbs_element
+#: model:ir.actions.act_window,help:project_wbs_element.act_project_wbs_element_2_project_wbs_element_all
+msgid "Here you can create new child WBS Elements"
+msgstr "Aquí usted puede crear nuevos elementos EDT hijos"
+
+#. module: project_wbs_element
+#: model:ir.actions.act_window,help:project_wbs_element.act_project_project_2_project_wbs_element_all
+msgid "Here, you can create new WBS Elements"
+msgstr "Aquí, usted puede crear nuevos Elementos EDT"
+
+#. module: project_wbs_element
+#: model:ir.actions.act_window,help:project_wbs_element.act_project_wbs_element_2_project_task_all
+msgid "Here, you can create new tasks"
+msgstr "Aquí, usted puede crear nuevas tareas"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_id
+msgid "ID"
+msgstr "ID"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,help:project_wbs_element.field_project_wbs_element_message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si se selecciona, los nuevos mensajes requerirán su atención."
+
+#. module: project_wbs_element
+#: model:ir.model.fields,help:project_wbs_element.field_project_wbs_element_message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si se selecciona, los nuevos mensajes requerirán su atención."
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_is_follower
+msgid "Is Follower"
+msgstr "Es Seguidor"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_last_post
+msgid "Last Message Date"
+msgstr "Fecha Último Mensaje"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element___last_update
+msgid "Last Modified on"
+msgstr "Última Modificación el"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.view_project_wbs_element_search_view
+msgid "Level 1 WBS"
+msgstr "Nivel 1 EDT"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.wbs_element_kanban_view
+msgid "More <i class=\"fa fa-caret-down\"/>"
+msgstr "More <i class=\"fa fa-caret-down\"/>"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_name
+msgid "Name"
+msgstr "Nombres"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de Acciones"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_nbr_childs
+msgid "Number of Child WBS Elements"
+msgstr "Número de Elementos EDT hijos"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_nbr_docs
+msgid "Number of Documents"
+msgstr "Número de Documentos"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_nbr_tasks
+msgid "Number of Tasks"
+msgstr "Número de Tareas"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_project_nbr_wbs_elements
+msgid "Number of WBS Elements"
+msgstr "Número de Elementos EDT"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,help:project_wbs_element.field_project_wbs_element_message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,help:project_wbs_element.field_project_wbs_element_message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes sin leer"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_parent_id
+#: model:ir.ui.view,arch_db:project_wbs_element.view_project_wbs_element_search_view
+msgid "Parent WBS Element"
+msgstr "Elemento EDT Padre"
+
+#. module: project_wbs_element
+#: model:ir.model,name:project_wbs_element.model_project_project
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_project_id
+#: model:ir.ui.view,arch_db:project_wbs_element.view_project_wbs_element_search_view
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: project_wbs_element
+#: model:ir.model,name:project_wbs_element.model_project_wbs_element
+msgid "Project WBS Element"
+msgstr "Elemento EDT del Proyecto"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.view_project_wbs_element_search_view
+msgid "Search WBS Element"
+msgstr "Buscar Elemento EDT"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.wbs_element_kanban_view
+msgid "Settings"
+msgstr "Configuración"
+
+#. module: project_wbs_element
+#: model:ir.model,name:project_wbs_element.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: project_wbs_element
+#: model:ir.actions.act_window,name:project_wbs_element.act_project_wbs_element_2_project_task_all
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_task_ids
+#: model:ir.ui.view,arch_db:project_wbs_element.project_wbs_element_form_view
+msgid "Tasks"
+msgstr "Tareas"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_unread
+#: model:ir.ui.view,arch_db:project_wbs_element.view_project_wbs_element_search_view
+msgid "Unread Messages"
+msgstr "Mensajes sin Leer"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_wbs_element_message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de Mensajes sin Leer"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_task_wbs_element_id
+#: model:ir.ui.view,arch_db:project_wbs_element.project_wbs_element_form_view
+#: model:ir.ui.view,arch_db:project_wbs_element.view_task_search_form
+msgid "WBS Element"
+msgstr "Elemento EDT"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.project_wbs_element_form_view
+msgid "WBS Element Code"
+msgstr "Código Elemento EDT"
+
+#. module: project_wbs_element
+#: model:ir.ui.view,arch_db:project_wbs_element.project_wbs_element_form_view
+#: model:ir.ui.view,arch_db:project_wbs_element.view_project_wbs_element_search_view
+msgid "WBS Element Name"
+msgstr "Nombre del Elemento EDT"
+
+#. module: project_wbs_element
+#: model:ir.actions.act_window,name:project_wbs_element.dblc_wbs_element
+msgid "WBS Element tasks"
+msgstr "Tareas del Elemento EDT"
+
+#. module: project_wbs_element
+#: model:ir.actions.act_window,name:project_wbs_element.act_project_project_2_project_wbs_element_all
+#: model:ir.actions.act_window,name:project_wbs_element.act_project_wbs_element_2_project_wbs_element_all
+#: model:ir.actions.act_window,name:project_wbs_element.open_view_project_wbs_element_all
+#: model:ir.ui.view,arch_db:project_wbs_element.edit_project
+#: model:ir.ui.view,arch_db:project_wbs_element.view_project_wbs_element_tree_view
+msgid "WBS Elements"
+msgstr "Elementos EDT"
+
+#. module: project_wbs_element
+#: model:ir.ui.menu,name:project_wbs_element.menu_wbs_elements
+msgid "WBS elements"
+msgstr "Elementos EDT"
+
+#. module: project_wbs_element
+#: model:ir.model.fields,field_description:project_wbs_element.field_project_project_wbs_element_ids
+msgid "Wbs element ids"
+msgstr "Ids Elementos EDT"
+
+#. module: project_wbs_element
+#: model:ir.actions.act_window,help:project_wbs_element.act_project_wbs_element_2_project_task_all
+msgid ""
+"You can now manage your tasks in order to get things done efficiently. Track "
+"progress, discuss, attach documents, etc."
+msgstr ""
+"Ahora puede gestionar sus tareas en orden para obtener cosas terminadas "
+"eficientemente. Seguimiento del progreso, discusiones, adjuntar documentos, "
+"etc."
