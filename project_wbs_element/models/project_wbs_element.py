@@ -127,3 +127,22 @@ class ProjectWbsElement(models.Model):
             'context': "{'default_res_model': '%s','default_res_id': %d}" % (
                 self._name, res_id)
         }
+
+        @api.model
+        def create(self, values):
+            wbs_element = super(ProjectWbsElement, self).create(values)
+            if len(wbs_element.parent_id) >= 1:
+                name = ('['+str(wbs_element.parent_id.code) +
+                        ' / '+str(wbs_element.code)+'] ' +
+                        str(wbs_element.parent_id.name) +
+                        ' / '+str(wbs_element.name))
+                wbs_element.parent_analytic_account_id = (
+                    wbs_element.parent_id.analytic_account_id)
+            else:
+                name = wbs_element.name
+            wbs_element.analytic_account_id.create({
+                    'account_type': 'normal',
+                    'company_id': self.env.user.company_id.id,
+                    'name': name,
+                    })
+            return wbs_element
