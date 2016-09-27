@@ -70,7 +70,7 @@
                             <field name="description" nolabel="True"/>
                         </page>
                         <page name="childs" string="Child WBS Elements">
-                            <field name="child_ids" nolabel="True"/>
+                            <field name="child_ids" readonly='1' nolabel="True"/>
                         </page>
                     </notebook>
                 </sheet>
