@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from openerp import api, fields, models, _
-from openerp.exceptions import UserError
+from openerp.exceptions import ValidationError
 
 
 class ProjectWbsElement(models.Model):
@@ -11,17 +11,17 @@ class ProjectWbsElement(models.Model):
     _description = "Project WBS Element"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-    code = fields.Char()
+    code = fields.Char(compute='_compute_wbs_code')
     name = fields.Char(required=True)
     description = fields.Text()
     project_id = fields.Many2one(
-        comodel_name='project.project',
+        'project.project',
         string='Project',
         required=True,
         copy=True
     )
     parent_id = fields.Many2one(
-        comodel_name='project.wbs_element',
+        'project.wbs_element',
         string='Parent WBS Element',
         required=False,
         copy=True
@@ -48,6 +48,12 @@ class ProjectWbsElement(models.Model):
         string='Number of Documents',
         compute='_count_attached_docs')
     color = fields.Integer(string='Color Index')
+    analytic_account_id = fields.Many2one(
+        'account.analytic.account',
+        string='Analytic account')
+    parent_analytic_account_id = fields.Many2one(
+        'account.analytic.account',
+        string='Parent nalytic account')
 
     @api.depends('task_ids')
     def _count_tasks(self):
@@ -83,7 +89,7 @@ class ProjectWbsElement(models.Model):
     def _check_tasks_assigned(self):
         for record in self:
             if record.child_ids and record.task_ids:
-                raise UserError(
+                raise ValidationError(
                     _('A WBS Element that is parent of others cannot have '
                       'tasks assigned.'))
 
@@ -128,21 +134,87 @@ class ProjectWbsElement(models.Model):
                 self._name, res_id)
         }
 
-        @api.model
-        def create(self, values):
-            wbs_element = super(ProjectWbsElement, self).create(values)
-            if len(wbs_element.parent_id) >= 1:
-                name = ('['+str(wbs_element.parent_id.code) +
-                        ' / '+str(wbs_element.code)+'] ' +
-                        str(wbs_element.parent_id.name) +
-                        ' / '+str(wbs_element.name))
-                wbs_element.parent_analytic_account_id = (
-                    wbs_element.parent_id.analytic_account_id)
+    @api.multi
+    @api.depends('parent_id', 'child_ids', 'project_id', 'code')
+    def _compute_wbs_code(self):
+        for rec in self:
+            if len(rec.parent_id) == 1:
+                if len(rec.parent_id.child_ids) >= 1:
+                    childrens = rec.parent_id.child_ids
+                    childrens_ids = rec.parent_id.child_ids.ids
+                    if rec.id not in childrens_ids:
+                        rec.code = 'N/A'
+                        break
+                    else:
+                        rec_position = childrens_ids.index(rec.id)
+                        element_before = childrens[rec_position - 1]
+                        last_code = int(element_before.code) + 1
+                        rec.code = rec.parent_id.code + '.' + str(last_code)
+                        rec.parent_analytic_account_id = (
+                            rec.parent_id.analytic_account_id)
             else:
-                name = wbs_element.name
-            wbs_element.analytic_account_id.create({
-                    'account_type': 'normal',
-                    'company_id': self.env.user.company_id.id,
-                    'name': name,
-                    })
-            return wbs_element
+                all_elements_ids = self.env['project.wbs_element'].search(
+                    [('project_id', '=', rec.project_id.id),
+                     ('parent_id', '=', False)]).ids
+                all_elements = self.env['project.wbs_element'].search(
+                    [('project_id', '=', rec.project_id.id),
+                     ('parent_id', '=', False)])
+                if rec.id not in all_elements_ids:
+                        rec.code = 'N/A'
+                        break
+                else:
+                    rec_position = all_elements_ids.index(rec.id)
+                if rec_position == 0:
+                    rec.code = "1"
+                else:
+                    element_before = all_elements[rec_position - 1]
+                    last_code = int(element_before.code) + 1
+                    rec.code = str(last_code)
+                if rec.analytic_account_id:
+                    name = ('['+str(rec.parent_id.code) +
+                            ' / '+str(rec.code)+'] ' +
+                            str(rec.project_id) +
+                            ' ' +
+                            str(rec.parent_id.name) +
+                            ' / '+str(rec.name))
+                    rec.analytic_account_id.write({'name': name})
+
+    @api.model
+    def create(self, values):
+        wbs_element = super(ProjectWbsElement, self).create(values)
+        name = ('['+str(self.parent_id.code) +
+                ' / '+str(self.code)+'] ' +
+                str(self.project_id) +
+                ' ' +
+                str(self.parent_id.name) +
+                ' / '+str(self.name))
+        self.analytic_account_id.create({
+            'company_id': self.env.user.company_id.id,
+            'name': name,
+            'type': 'normal'
+            })
+        return wbs_element
+
+    @api.multi
+    def unlink(self):
+        for rec in self:
+            if len(rec.child_ids) > 0:
+                raise ValidationError(
+                    _("Oops! This WBS element actually have"
+                      "Childs elements. \nYou must delete his childs "
+                      "before continue"))
+            else:
+                return super(ProjectWbsElement, self).unlink()
+
+    @api.multi
+    def write(self, values):
+        for rec in self:
+            res = super(ProjectWbsElement, self).write(values)
+            name = ('['+str(rec.parent_id.code) +
+                    ' / '+str(rec.code)+'] ' +
+                    str(rec.project_id) +
+                    ' ' +
+                    str(rec.parent_id.name) +
+                    ' / '+str(rec.name))
+            rec.analytic_account_id.write({'name': name})
+            return res

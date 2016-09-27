@@ -62,8 +62,8 @@
                         </h1>
                     </div>
                     <group>
-                        <field name="parent_id"/>
                         <field name="project_id"/>
+                        <field name="parent_id" domain="[('project_id', '=' , project_id)]"/>
                     </group>
                     <notebook>
                         <page name="description" string="Description">
