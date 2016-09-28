@@ -143,10 +143,13 @@ class ProjectWbsElement(models.Model):
                     childrens = rec.parent_id.child_ids
                     childrens_ids = rec.parent_id.child_ids.ids
                     if rec.id not in childrens_ids:
-                        rec.code = 'N/A'
+                        rec.code = ''
                         break
                     else:
                         rec_position = childrens_ids.index(rec.id)
+                    if rec_position == 0:
+                        rec.code = rec.parent_id.code + '.' + "1"
+                    else:
                         element_before = childrens[rec_position - 1]
                         if not element_before.code:
                             last_code = int(element_before.code) + 1
@@ -173,8 +176,8 @@ class ProjectWbsElement(models.Model):
                      ('parent_id', '=', False)])
                 all_elements_ids = all_elements.ids
                 if rec.id not in all_elements_ids:
-                        rec.code = 'N/A'
-                        break
+                    rec.code = 'N/A'
+                    break
                 else:
                     rec_position = all_elements_ids.index(rec.id)
                 if rec_position == 0:
@@ -183,29 +186,26 @@ class ProjectWbsElement(models.Model):
                     element_before = all_elements[rec_position - 1]
                     last_code = int(element_before.code) + 1
                     rec.code = str(last_code)
-                if rec.analytic_account_id:
-                    name = ('['+str(rec.parent_id.code) +
-                            ' / '+str(rec.code)+'] ' +
-                            str(rec.project_id) +
-                            ' ' +
-                            str(rec.parent_id.name) +
-                            ' / '+str(rec.name))
-                    rec.analytic_account_id.write({'name': name})
 
     @api.model
     def create(self, values):
         wbs_element = super(ProjectWbsElement, self).create(values)
-        name = ('['+str(self.parent_id.code) +
-                ' / '+str(self.code)+'] ' +
-                str(self.project_id) +
-                ' ' +
-                str(self.parent_id.name) +
-                ' / '+str(self.name))
-        self.analytic_account_id.create({
-            'company_id': self.env.user.company_id.id,
-            'name': name,
-            'type': 'normal'
-            })
+        if not wbs_element.parent_id:
+            name = ('['+str(wbs_element.code)+'] ' +
+                    str(wbs_element.project_id.name) +
+                    ' / '+str(wbs_element.name))
+        else:
+            name = ('['+str(wbs_element.parent_id.code) +
+                    ' / '+str(wbs_element.code)+'] ' +
+                    str(wbs_element.project_id.name) +
+                    ' ' +
+                    str(wbs_element.parent_id.name) +
+                    ' / '+str(wbs_element.name))
+        wbs_element.analytic_account_id = (
+            wbs_element.analytic_account_id.create({
+                'company_id': self.env.user.company_id.id,
+                'name': name,
+                'account_type': 'normal'}))
         return wbs_element
 
     @api.multi
@@ -223,11 +223,16 @@ class ProjectWbsElement(models.Model):
     def write(self, values):
         for rec in self:
             res = super(ProjectWbsElement, self).write(values)
-            name = ('['+str(rec.parent_id.code) +
-                    ' / '+str(rec.code)+'] ' +
-                    str(rec.project_id) +
-                    ' ' +
-                    str(rec.parent_id.name) +
-                    ' / '+str(rec.name))
-            rec.analytic_account_id.write({'name': name})
-            return res
+            if not rec.parent_id:
+                name = ('['+str(rec.code)+'] ' +
+                        str(rec.project_id.name) +
+                        ' / '+str(rec.name))
+            else:
+                name = ('['+str(rec.parent_id.code) +
+                        ' / '+str(rec.code)+'] ' +
+                        str(rec.project_id.name) +
+                        ' ' +
+                        str(rec.parent_id.name) +
+                        ' / '+str(rec.name))
+                rec.analytic_account_id.name = name
+                return res
