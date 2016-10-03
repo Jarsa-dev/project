@@ -176,7 +176,7 @@ class ProjectWbsElement(models.Model):
                      ('parent_id', '=', False)])
                 all_elements_ids = all_elements.ids
                 if rec.id not in all_elements_ids:
-                    rec.code = 'N/A'
+                    rec.code = ''
                     break
                 else:
                     rec_position = all_elements_ids.index(rec.id)
