@@ -59,6 +59,7 @@
                             <field name="code" placeholder="WBS Element Code"/>
                             <field name="name"
                                    placeholder="WBS Element Name"/>
+                            <field name="analytic_account_id" invisible="True"/>
                         </h1>
                     </div>
                     <group>
