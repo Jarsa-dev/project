@@ -5,3 +5,4 @@
 from . import project_wbs_element
 from . import project_project
 from . import project_task
+from . import project_wbs_concept
