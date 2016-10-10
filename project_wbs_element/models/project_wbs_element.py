@@ -192,15 +192,15 @@ class ProjectWbsElement(models.Model):
         wbs_element = super(ProjectWbsElement, self).create(values)
         if not wbs_element.parent_id:
             name = ('['+str(wbs_element.code)+'] ' +
-                    str(wbs_element.project_id.name) +
+                    str(wbs_element.project_id.name.encode("utf-8")) +
                     ' / '+str(wbs_element.name))
         else:
             name = ('['+str(wbs_element.parent_id.code) +
                     ' / '+str(wbs_element.code)+'] ' +
-                    str(wbs_element.project_id.name) +
+                    str(wbs_element.project_id.name.encode("utf-8")) +
                     ' ' +
-                    str(wbs_element.parent_id.name) +
-                    ' / '+str(wbs_element.name))
+                    str(wbs_element.parent_id.name.encode("utf-8")) +
+                    ' / '+str(wbs_element.name.encode("utf-8")))
         wbs_element.analytic_account_id = (
             wbs_element.analytic_account_id.create({
                 'company_id': self.env.user.company_id.id,
@@ -225,14 +225,14 @@ class ProjectWbsElement(models.Model):
             res = super(ProjectWbsElement, self).write(values)
             if not rec.parent_id:
                 name = ('['+str(rec.code)+'] ' +
-                        str(rec.project_id.name) +
-                        ' / '+str(rec.name))
+                        str(rec.project_id.name.encode("utf-8")) +
+                        ' / '+str(rec.name.encode("utf-8")))
             else:
                 name = ('['+str(rec.parent_id.code) +
                         ' / '+str(rec.code)+'] ' +
-                        str(rec.project_id.name) +
+                        str(rec.project_id.name.encode("utf-8")) +
                         ' ' +
-                        str(rec.parent_id.name) +
-                        ' / '+str(rec.name))
+                        str(rec.parent_id.name.encode("utf-8")) +
+                        ' / '+str(rec.name.encode("utf-8")))
                 rec.analytic_account_id.name = name
                 return res
