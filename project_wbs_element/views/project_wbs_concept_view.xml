@@ -46,6 +46,6 @@
 			<field name='view_type'>form</field>
 			<field name='view_mode'>tree,form</field>
 		</record>
-		<menuitem id="action_project_wbs_concept_form_menu" name="WBS Concepts" parent="project.menu_project_config" action="action_project_wbs_concept_form" sequence="3"/>
+		<menuitem id="action_project_wbs_concept_form_menu" name="WBS Concepts" parent="project.menu_project_config" action="action_project_wbs_concept_form" sequence="2"/>
 	</data>
 </odoo>
