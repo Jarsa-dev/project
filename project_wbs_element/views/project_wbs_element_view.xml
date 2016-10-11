@@ -144,6 +144,7 @@
                     <field name="nbr_childs"/>
                     <field name="nbr_docs"/>
                     <field name="color"/>
+                    <field name="total_charge"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
@@ -153,6 +154,7 @@
                                             <div class="o_primary">
                                                 <span><t t-esc="record.code.value"/></span>
                                                 <span><t t-esc="record.name.value"/></span>
+                                                <span><t t-esc="record.total_charge.value"/></span>
                                             </div>
                                         </div>
                                     </div>
@@ -196,7 +198,6 @@
                 </kanban>
             </field>
         </record>
-
         <record id="act_project_project_2_project_wbs_element_all"
                 model="ir.actions.act_window">
             <field name="name">WBS Elements</field>
@@ -215,7 +216,6 @@
                 </p>
             </field>
         </record>
-
         <record id="open_view_project_wbs_element_all"
                 model="ir.actions.act_window">
             <field name="name">WBS Elements</field>
@@ -231,10 +231,8 @@
                 </p>
             </field>
         </record>
-
         <menuitem action="open_view_project_wbs_element_all"
                   id="menu_wbs_elements"
                   name="WBS elements" parent="base.menu_main_pm" sequence="2"/>
-
     </data>
 </openerp>

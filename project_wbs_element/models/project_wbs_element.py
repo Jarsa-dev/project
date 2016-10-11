@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# © 2015 Eficent Business and IT Consulting Services S.L.
+# © <2016> <Jarsa Sistemas, S.A. de C.V.>
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from openerp import api, fields, models, _
@@ -40,13 +40,13 @@ class ProjectWbsElement(models.Model):
     )
     nbr_tasks = fields.Integer(
         string='Number of Tasks',
-        compute='_count_tasks')
+        compute='_compute_count_tasks')
     nbr_childs = fields.Integer(
         string='Number of Child WBS Elements',
-        compute='_count_childs')
+        compute='_compute_count_childs')
     nbr_docs = fields.Integer(
         string='Number of Documents',
-        compute='_count_attached_docs')
+        compute='_compute_count_attached_docs')
     color = fields.Integer(string='Color Index')
     analytic_account_id = fields.Many2one(
         'account.analytic.account',
@@ -54,18 +54,20 @@ class ProjectWbsElement(models.Model):
     parent_analytic_account_id = fields.Many2one(
         'account.analytic.account',
         string='Parent nalytic account')
+    total_charge = fields.Float(compute="_compute_total_charges")
+
 
     @api.depends('task_ids')
-    def _count_tasks(self):
+    def _compute_count_tasks(self):
         for record in self:
             record.nbr_tasks = len(record.task_ids)
 
     @api.depends('child_ids')
-    def _count_childs(self):
+    def _compute_count_childs(self):
         for record in self:
             record.nbr_childs = len(record.child_ids)
 
-    def _count_attached_docs(self):
+    def _compute_count_attached_docs(self):
         attachment = self.env['ir.attachment']
         task = self.env['project.task']
         for record in self:
@@ -236,3 +238,9 @@ class ProjectWbsElement(models.Model):
                         ' / '+str(rec.name.encode("utf-8")))
                 rec.analytic_account_id.name = name
                 return res
+
+    @api.depends('child_ids')
+    def _compute_total_charges(self):
+        for rec in self:
+            for child in rec.child_ids:
+                rec.total_charge = rec.total_charge + child.total
