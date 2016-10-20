@@ -46,3 +46,8 @@ class ProjectTask(models.Model):
 	            'name': name,
 	            'account_type': 'normal'}))
 		return task
+
+	@api.multi
+	def _compute_total_task(self):
+		for rec in self:
+			print 'ramiro'
