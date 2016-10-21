@@ -14,9 +14,9 @@ class ProjectProject(models.Model):
         copy=True
     )
     nbr_wbs_elements = fields.Integer('Number of WBS Elements',
-                                      compute='_count_wbs_elements')
+                                      compute='_compute_count_wbs_elements')
 
     @api.depends('wbs_element_ids')
-    def _count_wbs_elements(self):
+    def _compute_count_wbs_elements(self):
         for record in self:
             record.nbr_wbs_elements = len(record.wbs_element_ids)
