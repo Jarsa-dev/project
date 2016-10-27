@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
-
         <record id="edit_project" model="ir.ui.view">
             <field name="name">project.project.form</field>
             <field name="model">project.project</field>
@@ -42,6 +41,5 @@
                 </div>
             </field>
         </record>
-
     </data>
-</openerp>
+</odoo>
