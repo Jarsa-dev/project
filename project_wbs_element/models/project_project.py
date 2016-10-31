@@ -15,6 +15,7 @@ class ProjectProject(models.Model):
     )
     nbr_wbs_elements = fields.Integer('Number of WBS Elements',
                                       compute='_compute_count_wbs_elements')
+    label_tasks = fields.Char(default='Concepts')
 
     @api.depends('wbs_element_ids')
     def _compute_count_wbs_elements(self):

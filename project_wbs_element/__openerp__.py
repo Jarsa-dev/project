@@ -14,11 +14,11 @@
     'license': 'AGPL-3',
     'depends': [
         'project',
-        'project_image'
+        'project_image',
+        'task_code'
     ],
     'data': [
         'views/project_task_view.xml',
-        'views/project_wbs_concept_view.xml',
         'views/project_wbs_element_view.xml',
         'views/project_view.xml',
     ],

@@ -41,7 +41,7 @@
                     <sheet string="WBS Element">
                         <div class="oe_button_box" groups="base.group_user" name="button_box">
                             <button class="oe_stat_button" icon="fa-tasks" name="%(act_project_wbs_element_2_project_task_all)d" type="action">
-                                <field name="nbr_tasks" string="Tasks" widget="statinfo"/>
+                                <field name="nbr_tasks" string="Concepts" widget="statinfo"/>
                             </button>
                         </div>
                         <div class="oe_title">
@@ -132,12 +132,9 @@
                                     <div class="o_kanban_card_content o_visible">
                                         <div class="o_kanban_primary_left">
                                             <div class="o_primary">
-                                                <span>
-                                                    <t t-esc="record.code.value"/>
-                                                </span>
-                                                <span>
-                                                    <t t-esc="record.name.value"/>
-                                                </span>
+                                                <span><t t-esc="record.code.value"/></span>
+                                                <span><t t-esc="record.name.value"/></span>
+                                                <br/><t t-if="record.total_charge.value"><span><label> Total: $</label><t t-esc="record.total_charge.value"/></span></t>
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +174,7 @@
                                             <span class="o_value">
                                                 <t t-esc="record.nbr_tasks.value"/>
                                             </span>
-                                            <span class="o_label">Tasks</span>
+                                            <span class="o_label">Concepts</span>
                                         </a>
                                     </div>
                                 </div>

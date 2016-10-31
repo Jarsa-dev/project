@@ -101,16 +101,6 @@ class ProjectWbsElement(models.Model):
             record.project_id = record.project_id
 
     @api.multi
-    def name_get(self):
-        res = []
-        for record in self:
-            name = record.name
-            if record.code:
-                name = '[' + record.code + '] ' + name
-            res.append((record.id, name))
-        return res
-
-    @api.multi
     def attachment_tree_view(self):
         tasks = self.env['project.task'].search([
             ('project_id', 'in', self.ids)])
@@ -237,10 +227,10 @@ class ProjectWbsElement(models.Model):
                         str(rec.parent_id.name.encode("utf-8")) +
                         ' / '+str(rec.name.encode("utf-8")))
                 rec.analytic_account_id.name = name
-                return res
+            return res
 
     @api.depends('child_ids')
     def _compute_total_charges(self):
         for rec in self:
-            for child in rec.child_ids:
-                rec.total_charge = rec.total_charge + child.total
+            for child in rec.task_ids:
+                rec.total_charge = rec.total_charge + child.subtotal

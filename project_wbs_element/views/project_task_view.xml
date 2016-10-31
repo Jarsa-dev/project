@@ -34,10 +34,11 @@
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_kanban"/>
             <field name="arch" type="xml">
-                <field name="name" position="after">
+                <field name="name" position="before">
                     <div>
                         <field name="wbs_element_id"/>
                     </div>
+                    <br/>
                 </field>
             </field>
          </record>
