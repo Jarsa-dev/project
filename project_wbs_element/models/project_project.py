@@ -28,7 +28,6 @@ class ProjectProject(models.Model):
 
     @api.model
     def create(self, values):
-        import ipdb; ipdb.set_trace()
         project = super(ProjectProject, self).create(values)
         project.indirects_account_id = (
             project.analytic_account_id.create({

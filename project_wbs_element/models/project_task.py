@@ -38,7 +38,6 @@ class ProjectTask(models.Model):
 
     @api.model
     def create(self, values):
-        import ipdb; ipdb.set_trace()
         task = super(ProjectTask, self).create(values)
         if not task.wbs_element_id:
             name = task.name
