@@ -42,7 +42,8 @@ class ProjectTask(models.Model):
         if not task.wbs_element_id:
             name = task.name
         else:
-            name = ('[' + task.wbs_element_id.code + '] ' +
+            name = ('[' + task.project_id.name + '] /' +
+                    '[' + task.wbs_element_id.code + '] ' +
                     task.wbs_element_id.name + ' / ' + task.name)
         task.analytic_account_id = (
             task.analytic_account_id.create({
