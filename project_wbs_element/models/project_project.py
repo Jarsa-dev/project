@@ -29,6 +29,7 @@ class ProjectProject(models.Model):
 
     @api.model
     def create(self, vals):
+        import ipdb; ipdb.set_trace()
         name = ('[' + vals['name'] + '] /' + _('indirects'))
         vals['indirects_analytic_account_id'] = (
             self.indirects_analytic_account_id.create(
@@ -36,5 +37,5 @@ class ProjectProject(models.Model):
                     'company_id': self.env.user.company_id.id,
                     'name': name,
                     'account_type': 'normal',
-                }))
+                }).id)
         return super(ProjectProject, self).create(vals)
