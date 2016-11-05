@@ -33,8 +33,9 @@ class ProjectTask(models.Model):
         for record in self:
             if record.wbs_element_id and record.wbs_element_id.child_ids:
                 raise UserError(
-                    _('A WBS Element that is parent of others cannot have '
-                      'concepts assigned.'))
+                    _('A WBS Element that is parent'
+                        ' of others cannot have'
+                        ' concepts assigned.'))
 
     @api.model
     def create(self, values):
