@@ -134,7 +134,7 @@
                                             <div class="o_primary">
                                                 <span><t t-esc="record.code.value"/></span>
                                                 <span><t t-esc="record.name.value"/></span>
-                                                <br/><t t-if="record.total_charge.value"><span><label> Total: $</label><t t-esc="record.total_charge.value"/></span></t>
+                                                <br/><t t-if="record.total_charge.value" name="total"><span><label> Total: $</label><t t-esc="record.total_charge.value"/></span></t>
                                             </div>
                                         </div>
                                     </div>
