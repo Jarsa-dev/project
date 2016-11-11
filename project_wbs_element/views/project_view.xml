@@ -14,10 +14,6 @@
                                widget="statinfo"/>
                     </button>
                 </div>
-                 <field name="sequence" position="before">
-                    <field name="indirects" widget="progressbar"/>
-                    <field name="utility" widget="progressbar"/>
-                </field>
             </field>
         </record>
 
