@@ -54,3 +54,9 @@ class ProjectTask(models.Model):
         task.wbs_element_account = (
             task.wbs_element_id.analytic_account_id)
         return task
+
+    @api.multi
+    def unlink(self):
+        if self.analytic_account_id:
+            self.analytic_account_id.unlink()
+        return super(ProjectTask, self).unlink()
