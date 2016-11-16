@@ -57,6 +57,7 @@ class ProjectTask(models.Model):
 
     @api.multi
     def unlink(self):
-        if self.analytic_account_id:
-            self.analytic_account_id.unlink()
-        return super(ProjectTask, self).unlink()
+        for rec in self:
+            if rec.analytic_account_id:
+                rec.analytic_account_id.unlink()
+            return super(ProjectTask, self).unlink()
