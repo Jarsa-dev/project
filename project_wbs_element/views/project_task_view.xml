@@ -26,6 +26,9 @@
                 <field name="project_id" position="after">
                     <field name="wbs_element_id"/>
                 </field>
+                <field name="description" position="replace">
+                    <field name="description"/>
+                </field> 
             </field>
         </record>
 
@@ -50,6 +53,7 @@
             <field name="arch" type="xml">
                 <field name="project_id"
                        position="after">
+                    <field name="description"/>
                     <field name="wbs_element_id"
                            invisible="context.get('user_invisible', False)"/>
                 </field>

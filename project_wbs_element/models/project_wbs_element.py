@@ -54,7 +54,6 @@ class ProjectWbsElement(models.Model):
     parent_analytic_account_id = fields.Many2one(
         'account.analytic.account',
         string='Parent nalytic account')
-    total_charge = fields.Float(compute="_compute_total_charges")
 
 
     @api.depends('task_ids')
@@ -228,9 +227,3 @@ class ProjectWbsElement(models.Model):
                         ' / '+str(rec.name.encode("utf-8")))
                 rec.analytic_account_id.name = name
             return res
-
-    @api.depends('child_ids')
-    def _compute_total_charges(self):
-        for rec in self:
-            for child in rec.task_ids:
-                rec.total_charge = rec.total_charge + child.subtotal

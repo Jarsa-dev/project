@@ -22,6 +22,8 @@ class ProjectTask(models.Model):
         'account.analytic.account',
         string='Wbs Analytic Account')
 
+    description = fields.Text()
+
     @api.onchange('wbs_element_id')
     def _onchange_wbs_element_id(self):
         if self.wbs_element_id:

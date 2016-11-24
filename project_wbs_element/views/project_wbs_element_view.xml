@@ -124,7 +124,6 @@
                     <field name="nbr_childs"/>
                     <field name="nbr_docs"/>
                     <field name="color"/>
-                    <field name="total_charge"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click">
@@ -133,8 +132,7 @@
                                         <div class="o_kanban_primary_left">
                                             <div class="o_primary">
                                                 <span><t t-esc="record.code.value"/></span>
-                                                <span><t t-esc="record.name.value"/></span>
-                                                <br/><t t-if="record.total_charge.value" name="total"><span><label> Total: $</label><t t-esc="record.total_charge.value"/></span></t>
+                                                <span name="wbs_name"><t t-esc="record.name.value"/></span>
                                             </div>
                                         </div>
                                     </div>
