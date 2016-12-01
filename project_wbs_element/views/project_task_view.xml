@@ -24,10 +24,10 @@
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
                 <field name="project_id" position="after">
-                    <field name="wbs_element_id"/>
+                    <field name="wbs_element_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                 </field>
                 <field name="description" position="replace">
-                    <field name="description"/>
+                    <field name="description" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
                 </field> 
             </field>
         </record>
