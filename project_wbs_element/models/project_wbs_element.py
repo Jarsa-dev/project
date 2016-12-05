@@ -8,7 +8,6 @@ from openerp.exceptions import ValidationError
 
 class ProjectWbsElement(models.Model):
     _name = "project.wbs_element"
-    _description = "Project WBS Element"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
     code = fields.Char(compute='_compute_wbs_code')

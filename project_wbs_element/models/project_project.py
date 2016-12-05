@@ -7,7 +7,6 @@ from openerp import _, api, fields, models
 
 class ProjectProject(models.Model):
     _inherit = 'project.project'
-    _name = 'project.project'
 
     wbs_element_ids = fields.One2many(
         comodel_name='project.wbs_element',
