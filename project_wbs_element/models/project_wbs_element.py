@@ -10,7 +10,9 @@ class ProjectWbsElement(models.Model):
     _name = "project.wbs_element"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-    code = fields.Char(compute='_compute_wbs_code')
+    code = fields.Char(
+        compute='_compute_wbs_code',
+        store=True,)
     name = fields.Char(required=True)
     description = fields.Text()
     project_id = fields.Many2one(
