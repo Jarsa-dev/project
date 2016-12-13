@@ -23,5 +23,4 @@
         'views/project_view.xml',
     ],
     'installable': True,
-    'active': False,
 }

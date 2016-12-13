@@ -10,9 +10,7 @@ class ProjectWbsElement(models.Model):
     _name = "project.wbs_element"
     _inherit = ['mail.thread', 'ir.needaction_mixin']
 
-    code = fields.Char(
-        compute='_compute_wbs_code',
-        store=True,)
+    code = fields.Char()
     name = fields.Char(required=True)
     description = fields.Text()
     project_id = fields.Many2one(
@@ -55,7 +53,6 @@ class ProjectWbsElement(models.Model):
     parent_analytic_account_id = fields.Many2one(
         'account.analytic.account',
         string='Parent analytic account')
-
 
     @api.depends('task_ids')
     def _compute_count_tasks(self):
@@ -125,59 +122,6 @@ class ProjectWbsElement(models.Model):
             'context': "{'default_res_model': '%s','default_res_id': %d}" % (
                 self._name, res_id)
         }
-
-    @api.multi
-    @api.depends('parent_id', 'child_ids', 'project_id', 'code')
-    def _compute_wbs_code(self):
-        for rec in self:
-            if len(rec.parent_id) == 1:
-                if len(rec.parent_id.child_ids) >= 1:
-                    childrens = rec.parent_id.child_ids
-                    childrens_ids = rec.parent_id.child_ids.ids
-                    if rec.id not in childrens_ids:
-                        rec.code = ''
-                        break
-                    else:
-                        rec_position = childrens_ids.index(rec.id)
-                    if rec_position == 0:
-                        rec.code = rec.parent_id.code + '.' + "1"
-                    else:
-                        element_before = childrens[rec_position - 1]
-                        if not element_before.code:
-                            last_code = int(element_before.code) + 1
-                            rec.code = (rec.parent_id.code +
-                                        '.' + str(last_code))
-                            rec.parent_analytic_account_id = (
-                                rec.parent_id.analytic_account_id)
-                        else:
-                            codes = element_before.code.split('.')
-                            increment_code = int(codes[-1]) + 1
-                            rec.code = ''
-                            for i, code in enumerate(codes):
-                                if i != len(codes) - 1:
-                                    if rec.code == '':
-                                        rec.code = code
-                                    else:
-                                        rec.code = rec.code + '.' + code
-                                else:
-                                    rec.code = (
-                                        rec.code + '.' + str(increment_code))
-            else:
-                all_elements = self.env['project.wbs_element'].search(
-                    [('project_id', '=', rec.project_id.id),
-                     ('parent_id', '=', False)])
-                all_elements_ids = all_elements.ids
-                if rec.id not in all_elements_ids:
-                    rec.code = ''
-                    break
-                else:
-                    rec_position = all_elements_ids.index(rec.id)
-                if rec_position == 0:
-                    rec.code = "1"
-                else:
-                    element_before = all_elements[rec_position - 1]
-                    last_code = int(element_before.code) + 1
-                    rec.code = str(last_code)
 
     @api.model
     def create(self, values):
