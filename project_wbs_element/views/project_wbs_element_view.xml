@@ -54,6 +54,7 @@
                         <group>
                             <field name="project_id"/>
                             <field domain="[('project_id', '=' , project_id)]" name="parent_id"/>
+                            <field name="partner_id"/>
                         </group>
                         <notebook>
                             <page name="description" string="Description">

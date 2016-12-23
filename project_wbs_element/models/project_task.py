@@ -17,12 +17,10 @@ class ProjectTask(models.Model):
     analytic_account_id = fields.Many2one(
         'account.analytic.account',
         string='Analytic account')
-
     wbs_element_account = fields.Many2one(
         'account.analytic.account',
         string='Wbs Analytic Account')
-
-    description = fields.Text()
+    description = fields.Text(required=True,)
 
     @api.onchange('wbs_element_id')
     def _onchange_wbs_element_id(self):
@@ -46,12 +44,13 @@ class ProjectTask(models.Model):
             name = task.name
         else:
             name = ('[' + task.project_id.name + '] /' +
-                    '[' + task.wbs_element_id.code + '] ' +
-                    task.wbs_element_id.name + ' / ' + task.name)
+                    '[' + task.wbs_element_id.code + '] / ' + task.name)
         task.analytic_account_id = (
             task.analytic_account_id.create({
                 'company_id': self.env.user.company_id.id,
                 'name': name,
+                'parent_id': task.wbs_element_id.analytic_account_id.id,
+                'partner_id': task.partner_id.id,
                 'account_type': 'normal'}))
         task.wbs_element_account = (
             task.wbs_element_id.analytic_account_id)

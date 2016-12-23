@@ -15,7 +15,6 @@
     'depends': [
         'project',
         'project_image',
-        'task_code'
     ],
     'data': [
         'views/project_task_view.xml',

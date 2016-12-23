@@ -28,7 +28,10 @@
                 </field>
                 <field name="description" position="replace">
                     <field name="description" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
-                </field> 
+                </field>
+                <field name="partner_id" position="replace">
+                    <field name="partner_id"/>
+                </field>
             </field>
         </record>
 

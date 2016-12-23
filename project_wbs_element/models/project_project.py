@@ -24,3 +24,16 @@ class ProjectProject(models.Model):
     def _compute_count_wbs_elements(self):
         for record in self:
             record.nbr_wbs_elements = len(record.wbs_element_ids)
+
+    @api.model
+    def create(self, vals):
+        name = ('[' + vals['name'] + '] /' + _('indirects'))
+        vals['indirects_analytic_account_id'] = (
+            self.indirects_analytic_account_id.create(
+                {
+                    'company_id': self.env.user.company_id.id,
+                    'name': name,
+                    'account_type': 'normal',
+                    'partner_id': vals['partner_id'],
+                }).id)
+        return super(ProjectProject, self).create(vals)
