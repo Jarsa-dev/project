@@ -20,7 +20,7 @@ class ProjectTask(models.Model):
     wbs_element_account = fields.Many2one(
         'account.analytic.account',
         string='Wbs Analytic Account')
-    description = fields.Text(required=True,)
+    description = fields.Text()
 
     @api.onchange('wbs_element_id')
     def _onchange_wbs_element_id(self):
