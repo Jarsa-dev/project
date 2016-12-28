@@ -8,7 +8,6 @@
     'author': (
         'Eficent Business and IT Consulting Services S.L.,'
         'Odoo Community Association (OCA)'),
-    'description': 'This module can create an WBS for projects in Odoo',
     'website': 'https://www.odoo-community.org',
     'category': 'Warehouse Management',
     'license': 'AGPL-3',
