@@ -144,7 +144,7 @@ class ProjectWbsElement(models.Model):
         if not wbs_element.parent_id:
             name = ('[' + str(
                 wbs_element.project_id.name.encode("utf-8")) + ']' +
-                ' / '+str(wbs_element.code))
+                ' / ' + str(wbs_element.code) + ' - ' + wbs_element.name)
             wbs_element.analytic_account_id = (
                 wbs_element.analytic_account_id.create({
                     'company_id': self.env.user.company_id.id,
