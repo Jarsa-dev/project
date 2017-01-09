@@ -33,6 +33,7 @@
         'views/purchase_order_view.xml',
         'views/purchase_request_view.xml',
         'views/resource_type_view.xml',
+        'views/purchase_order_report.xml',
     ],
     'installable': True,
 }

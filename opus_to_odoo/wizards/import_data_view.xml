@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_import_data" model="ir.ui.view">
+            <field name="name">view.import.data</field>
+            <field name="model">import.data</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Data">
+                    <header class="text-center">
+                        <separator string="Import Data From Opus to Odoo"/>
+                    </header>
+                    <group>
+                        <field name="file" widget="binary"/>
+                        <field name="new_file_name" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" name="import_data" type="object">
+                            <span> Import Data </span>
+                        </button>
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="import_data_action" model="ir.actions.act_window">
+            <field name="name">Import Data From Odoo</field>
+            <field name="res_model">import.data</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem action="import_data_action" id="import_data_menu" name="Import Data From Opus" parent="base.menu_main_pm" sequence="15"/>
+    </data>
+</odoo>

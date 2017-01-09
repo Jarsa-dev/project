@@ -82,6 +82,7 @@
                                 <field name="resource_type_id" widget="selection"/>
                                 <field name="uom_id" required="1"/>
                                 <field name="qty" sum="Total qty"/>
+                                <field name="unit_price"/>
                                 <field name="subtotal" sum="subtotal"/>
                             </tree>
                         </field>

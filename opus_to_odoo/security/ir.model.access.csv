@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_download_issues_file,access_download_issues_file,model_download_issues_file,,1,1,1,1

@@ -20,6 +20,10 @@ class AnalyticResourcePlanLine(models.Model):
         string="Quantity Consumed",
         digits=(14, 5),
         compute="_compute_qty_consumed")
+    remaining_qty = fields.Float(
+        string="Remaining Qty",
+        digits=(14, 5),
+        compute="_compute_remaining_qty")
 
     @api.multi
     def _compute_qty_on_hand(self):
@@ -60,3 +64,8 @@ class AnalyticResourcePlanLine(models.Model):
                     rec.qty_consumed += service.quantity
             else:
                 rec.qty_consumed = 0
+
+    @api.multi
+    def _compute_remaining_qty(self):
+        for rec in self:
+            rec.remaining_qty = rec.real_qty - rec.qty_consumed

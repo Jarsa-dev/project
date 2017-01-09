@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_download_issues_file" model="ir.ui.view">
+            <field name="name">view.download.issues.file</field>
+            <field name="model">download.issues.file</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Import Data">
+                    <header class="text-center">
+                        <separator string="Download Issues File"/>
+                    </header>
+                    <group>
+                        <separator string="Your file contains data that doesn't exist in the system please download the file to fix that issues"/>
+                    </group>
+                    <group>
+                        <field name="issue_qty" readonly="1"/>
+                    </group>
+                     <footer>
+                        <button class="oe_highlight" name="download_file" type="object">
+                            <span> Download File </span>
+                        </button>
+                        <button class="oe_link" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

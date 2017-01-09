@@ -9,6 +9,9 @@
                 <field name="qty" position="after">
                     <field name="real_qty" sum="real_qty" readonly="1"/>
                 </field>
+                <field name="subtotal" position="after">
+                    <field name="real_subtotal"/>
+                </field>
             </field>
         </record>
         <record id="view_resource_control_total_task_resource_form" model="ir.ui.view">
@@ -18,7 +21,10 @@
             <field name="arch" type="xml">
                 <field name="qty" position="after">
                     <field name="real_qty"/>
-                </field>         
+                </field>
+                <field name="subtotal" position="after">
+                    <field name="real_subtotal"/>
+                </field>
             </field>
         </record>
     </data>

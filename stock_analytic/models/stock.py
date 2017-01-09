@@ -2,9 +2,10 @@
 # © 2013 Julius Network Solutions
 # © 2015 Clear Corp
 # © 2016 Andhitia Rama <andhitia.r@gmail.com>
+# © 2017 Jarsa Sistemas S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, fields, models
+from openerp import _, api, exceptions, fields, models
 
 
 class StockMove(models.Model):
@@ -32,6 +33,11 @@ class StockQuant(models.Model):
                         context=context
                         )
         # Add analytic account in debit line
+        if len(res) == 0:
+            raise exceptions.ValidationError(
+                _('Something was wrong creating the account'
+                    ' move, please check the product and the'
+                    ' location configurations.'))
         if move.account_analytic_id:
             res[0][2].update({
                 'analytic_account_id': move.account_analytic_id.id,

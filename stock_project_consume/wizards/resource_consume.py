@@ -28,7 +28,7 @@ class ResourceConsume(models.TransientModel):
             'uom_id': line.uom_id.id,
             'real_qty': line.real_qty,
             'qty_on_hand': line.qty_on_hand,
-            'qty_to_consume': 1.0,
+            'qty_to_consume': line.remaining_qty,
             'qty_consumed': line.qty_consumed,
         }
 

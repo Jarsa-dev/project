@@ -14,6 +14,7 @@
                     <field name="qty" sum="Total qty"/>
                     <field name="requested_qty"/>
                     <field name="uom_id"/>
+                    <field name="unit_price"/>
                     <field name="subtotal" sum="subtotal"/>
                 </tree>
             </field>
@@ -36,6 +37,7 @@
                                 <field name="qty" sum="Total qty"/>
                                 <field name="requested_qty" readonly="1"/>
                                 <field name="uom_id" readonly="1"/>
+                                <field name="unit_price" readonly="1"/>
                                 <field name="subtotal"/>
                             </group>
                             <group string="Project Details">
