@@ -3,25 +3,24 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Stock Project Consume',
-    'summary': 'Stock Project Consume',
-    'version': '9.0.1.0.0',
+    'name': 'Task Extra Fields',
+    'summary': 'Add Fields to the task to compute extra percentages',
+    'version': '10.0.1.0.0',
+    'description': 'This module allows the compute of the task subtotal'
+                   'with extra values for example: indirects percentages',
     'category': 'Generic Modules',
     'author': (
-        'Jarsa Sistemas S.A. de C.V.',
-        'Odoo Community Association (OCA)'),
+        'Jarsa Sistemas S.A. de C.V.'),
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',
     'depends': [
-        'account_accountant',
-        'stock',
+        'project',
         'task_resource',
         ],
 
     'data': [
         'security/ir.model.access.csv',
-        'views/analytic_resource_plan_view.xml',
-        'wizards/resource_consume_view.xml'
+        'views/project_task_view.xml',
     ],
     'installable': True,
 }

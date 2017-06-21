@@ -6,7 +6,7 @@
 {
     "name": "Stock Analytic",
     "summary": "Adds an analytic account in stock move",
-    "version": "9.0.0.1.0",
+    "version": "10.0.0.1.0",
     "author": "Julius Network Solutions,"
     "ClearCorp, Andhitia Rama, "
     "Odoo Community Association (OCA)",

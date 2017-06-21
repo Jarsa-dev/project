@@ -213,6 +213,6 @@
         </record>
         <menuitem action="open_view_project_wbs_element_all"
                   id="menu_wbs_elements"
-                  name="WBS elements" parent="base.menu_main_pm" sequence="2"/>
+                  name="WBS elements" parent="project.menu_main_pm" sequence="2"/>
     </data>
 </odoo>

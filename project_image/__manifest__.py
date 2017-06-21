@@ -4,7 +4,7 @@
 {
     'name': 'Project Image',
     'summary': 'Adds a default image to the project Kanban view',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Generic Modules',
     'author': (
         'Eficent Business and IT Consulting Services S.L.,'

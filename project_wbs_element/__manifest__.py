@@ -4,7 +4,7 @@
 {
     'name': 'Project WBS Element',
     'summary': 'Manage Work Breakdown Structures in your Projects',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'author': (
         'Eficent Business and IT Consulting Services S.L.,'
         'Odoo Community Association (OCA)'),

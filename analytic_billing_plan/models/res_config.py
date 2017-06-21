@@ -2,10 +2,10 @@
 # Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
-class ProjectConfigSettings(models.Model):
+class ProjectConfigSettings(models.TransientModel):
     _inherit = 'project.config.settings'
 
     company_id = fields.Many2one(

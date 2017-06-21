@@ -88,7 +88,7 @@
             <field name="search_view_id" ref="view_analytic_billing_plan_filter"/>
             
         </record>
-        <menuitem id="analytic_billing_plan_menu" name="Billing Plan" parent="base.menu_main_pm"/>
+        <menuitem id="analytic_billing_plan_menu" name="Billing Plan" parent="project.menu_main_pm"/>
         <menuitem action="action_analytic_billing_plan_open_form" id="analytic_billing_plan_entries" parent="analytic_billing_plan.analytic_billing_plan_menu" sequence="1"/>
     </data>
 </odoo>

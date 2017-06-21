@@ -4,7 +4,7 @@
 
 {
     'name': 'Analytic Billing Plan',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'author': (
         'Jarsa Sistemas, S.A de C.V., Odoo Community Association (OCA)'),
     'website': 'https://www.jarsa.com.mx',
@@ -25,7 +25,6 @@
         'views/analytic_billing_plan_line_view.xml',
         'views/project_wbs_element.xml',
         'views/project_project_view.xml',
-        'views/res_company_view.xml',
         'views/res_config_view.xml',
         'views/task_resource.xml',
     ],

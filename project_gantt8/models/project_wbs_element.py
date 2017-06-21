@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright <2016> <Jarsa Sistemas S.A. de C.V.
 
-from openerp import fields, models
+from odoo import fields, models
 
 
 class ProjectWbsElement(models.Model):

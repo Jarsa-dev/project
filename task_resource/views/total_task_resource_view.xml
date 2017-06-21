@@ -73,6 +73,6 @@
             <field name="view_mode">tree</field>
             <field name="context">{'search_default_product_group_by': 1, 'search_default_analytic_account_group_by': 1}</field>
         </record>
-        <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="base.menu_main_pm"/>
+        <menuitem action="action_total_task_resource" id="task_menu_id" name="Insume Explotion" parent="project.menu_main_pm"/>
     </data>
 </odoo>

@@ -4,7 +4,7 @@
     "summary": """Ported view from odoo 8""",
     "category": "Hidden",
     "images": [],
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "IT-Projects LLC, Pavel Romanchenko, "
     "Odoo Community Association (OCA)",
     "website": "https://it-projects.info",

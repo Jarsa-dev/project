@@ -5,7 +5,7 @@
 {
     "name": "Stock Project Task",
     "summary": "Adds an project task in stock move",
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "Eficent Business and IT Consulting Services S.L.,"
     "Odoo Community Association (OCA)",
     "website": "https://www.odoo-community.org",
