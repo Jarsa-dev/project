@@ -8,11 +8,9 @@ from openerp import fields, models
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    server = fields.Char(
-        required=True, string="Server")
-    username = fields.Char(
-        string='UserNamer', required=True,
-    )
-    password = fields.Char(
-        string='Password', required=True,
-    )
+    opus_server = fields.Char(
+        string="Opus Server",)
+    opus_username = fields.Char(
+        string="Opus Username",)
+    opus_password = fields.Char(
+        string="Opus Password",)

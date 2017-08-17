@@ -38,7 +38,7 @@ class ProjectTask(models.Model):
         default=1,
     )
     subtotal = fields.Float(compute='_compute_value_subtotal')
-    unit_price = fields.Float(compute='_compute_unit_price')
+    unit_price = fields.Float()
     total_expense = fields.Float(
         'Total Expenses', compute="_compute_total_expense")
     partner_id = fields.Many2one(
@@ -47,11 +47,6 @@ class ProjectTask(models.Model):
         compute='_compute_partner_id',
         store=True,
         readonly=True, )
-
-    @api.depends('resource_line_ids')
-    def _compute_unit_price(self):
-        for rec in self:
-            rec.unit_price = sum([x.subtotal for x in rec.resource_line_ids])
 
     @api.depends('project_id')
     def _compute_partner_id(self):

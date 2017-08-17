@@ -11,15 +11,15 @@
 						<field invisible="1" name="company_id"/>
 						<label for="id" string="Server"/>
 						<div>
-							<field class="oe_inline" name="server"/>
+							<field class="oe_inline" name="opus_server" placeholder="127.0.0.1:1433"/>
 						</div>
 						<label for="id" string="Username"/>
 						<div>
-							<field class="oe_inline" name="username"/>
+							<field class="oe_inline" name="opus_username" placeholder="root"/>
 						</div>
 						<label for="id" string="Password"/>
 						<div>
-							<field class="oe_inline" name="password" password="1"/>
+							<field class="oe_inline" name="opus_password" password="1" placeholder="password"/>
 						</div>
 					</group>
 				</xpath>

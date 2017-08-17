@@ -1,0 +1,234 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* opus_to_odoo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 9.0c\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-17 18:12+0000\n"
+"PO-Revision-Date: 2017-08-17 18:12+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: opus_to_odoo
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:57
+#, python-format
+msgid "There are not results."
+msgstr "No se han encontrado resultados."
+
+#. module: opus_to_odoo
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:84
+#, python-format
+msgid "   Missing UoM \n"
+"\n"
+""
+msgstr "   UdM Faltantes \n"
+"\n"
+""
+
+#. module: opus_to_odoo
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:72
+#, python-format
+msgid "%s not exist"
+msgstr "%s no existe."
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
+msgid "127.0.0.1:1433"
+msgstr "127.0.0.1:1433"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_import_opus
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: opus_to_odoo
+#: model:ir.model,name:opus_to_odoo.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_display_name
+msgid "Display Name"
+msgstr "Nombre desplegado"
+
+#. module: opus_to_odoo
+#: selection:import.opus.wizard,state:0
+msgid "Download"
+msgstr "Descargar"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_log_binary
+msgid "Download File"
+msgstr "Descargar Archivo"
+
+#. module: opus_to_odoo
+#: selection:import.opus.wizard,state:0
+msgid "Get"
+msgstr "Obtener"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,help:opus_to_odoo.field_project_config_settings_opus_server
+msgid "Host of the database server and the server port."
+msgstr "Dirección y puerto del servidor de bases de datos."
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_id
+msgid "ID"
+msgstr "ID"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_import_opus
+msgid "Import"
+msgstr "Importar"
+
+#. module: opus_to_odoo
+#: model:ir.ui.menu,name:opus_to_odoo.opus_to_odoo_menu
+msgid "Import Project Opus"
+msgstr "Importar Proyectos de Opus"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_import_opus
+msgid "Import Project from Opus"
+msgstr "Importar Proyecto desde Opus"
+
+#. module: opus_to_odoo
+#: model:ir.actions.act_window,name:opus_to_odoo.action_report_import_opus
+#: model:ir.ui.menu,name:opus_to_odoo.wizard_import_opus
+msgid "Import Projects"
+msgstr "Importar Proyecto"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard___last_update
+msgid "Last Modified on"
+msgstr "Ultima modificacion realizada"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_write_uid
+msgid "Last Updated by"
+msgstr "Ultima actualizacion por"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización realizada"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_log_filename
+msgid "Name"
+msgstr "Nombre"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_project_config_settings_opus_password
+#: model:ir.model.fields,field_description:opus_to_odoo.field_res_company_opus_password
+msgid "Opus Password"
+msgstr "Contraseña Opus"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_project_config_settings_opus_server
+#: model:ir.model.fields,field_description:opus_to_odoo.field_res_company_opus_server
+msgid "Opus Server"
+msgstr "Servidor Opus"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
+msgid "Opus Settings"
+msgstr "Configuración Opus"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_project_config_settings_opus_username
+#: model:ir.model.fields,field_description:opus_to_odoo.field_res_company_opus_username
+msgid "Opus Username"
+msgstr "Nombre de Usuario Opus"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
+msgid "Password"
+msgstr "Contraseña"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,help:opus_to_odoo.field_project_config_settings_opus_password
+msgid "Password of the connection user."
+msgstr "Contraseña para la conexión."
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_progress
+msgid "Progress"
+msgstr "Progreso"
+
+#. module: opus_to_odoo
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:89
+#, python-format
+msgid "Project Errors"
+msgstr "Errores"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_project_ids
+msgid "Projects"
+msgstr "Proyectos"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
+msgid "Server"
+msgstr "Servidor"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_state
+msgid "State"
+msgstr "Estado"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
+msgid "Username"
+msgstr "Usuario"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,help:opus_to_odoo.field_project_config_settings_opus_username
+msgid "Username of the database server."
+msgstr "Usuario del servidor de bases de datos."
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_import_opus
+msgid "Validate"
+msgstr "Validar"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_import_opus
+msgid "You have some errors. Please check the TXT file"
+msgstr "Se encontraron algunos errores. Por favor revise el archivo TXT."
+
+#. module: opus_to_odoo
+#: model:ir.model,name:opus_to_odoo.model_import_opus_wizard
+msgid "import.opus.wizard"
+msgstr "import.opus.wizard"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
+msgid "password"
+msgstr "Contraseña"
+
+#. module: opus_to_odoo
+#: model:ir.model,name:opus_to_odoo.model_project_config_settings
+msgid "project.config.settings"
+msgstr "Parámetros de configuración de proyectos"
+
+#. module: opus_to_odoo
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
+msgid "root"
+msgstr "root"
+
