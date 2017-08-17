@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_import_opus" model="ir.ui.view">
+            <field name="name">Import Project</field>
+            <field name="model">import.opus.wizard</field>
+            <field name="arch" type="xml">
+                <form version="9.0">
+                    <header class="text-center">
+                        <separator string="Import Project from Opus"/>
+                    </header>
+                    <group>
+                        <field name="project_ids"/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" name="validate_project" string="Validate" type="object"/>
+                        <button class="oe_highlight" name="import_project" string="Import" type="object"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer> 
+                </form>
+            </field>
+
+        </record>
+        <record id="action_report_import_opus" model="ir.actions.act_window">
+            <field name="name">Import Projects</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.opus.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="opus_to_odoo_menu" name="Import Project Opus" parent="base.menu_main_pm"/>
+        <menuitem action="action_report_import_opus" id="wizard_import_opus" parent="opus_to_odoo.opus_to_odoo_menu" sequence="99"/>
+    </data>
+</odoo>

@@ -9,20 +9,21 @@
 				<xpath expr="//group[1]" position="after">
 					<group string="Billing Settings">
 						<field name='company_id' invisible="1"/>
-						<div>
+
+								<label for='id' string="Bridge Account"/>
 							<div>
-								<label for='bridge_account_id'/>
 								<field name='bridge_account_id' class="oe_inline"/>
 							</div>
+
+								<label for='id' string="Billing Request Journal"/>
 							<div>
-								<label for='billing_request_journal_id'/>
 								<field name='billing_request_journal_id' class="oe_inline"/>
 							</div>
+
+								<label for='id' string="Product to Billing"/>
 							<div>
-								<label for='product_id'/>
 								<field name="product_id" class="oe_inline"/>
 							</div>
-						</div>
 					</group>
 				</xpath>
 			</field>

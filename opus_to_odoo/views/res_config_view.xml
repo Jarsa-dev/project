@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="view_project_import_opus" model="ir.ui.view">
+			<field name="name">view.project.opus.plan.settings.form</field>
+			<field name="model">project.config.settings</field>
+			<field name="inherit_id" ref="project.view_config_settings"/>
+			<field name="arch" type="xml">
+				<xpath expr="//group[1]" position="after">
+					<group string="Opus Settings">
+						<field invisible="1" name="company_id"/>
+						<label for="id" string="Server"/>
+						<div>
+							<field class="oe_inline" name="server"/>
+						</div>
+						<label for="id" string="Username"/>
+						<div>
+							<field class="oe_inline" name="username"/>
+						</div>
+						<label for="id" string="Password"/>
+						<div>
+							<field class="oe_inline" name="password" password="1"/>
+						</div>
+					</group>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>
