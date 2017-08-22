@@ -9,23 +9,32 @@
                     <header class="text-center">
                         <separator string="Import Project from Opus"/>
                     </header>
-                    <group>
-                        <field name="state" invisible="1"/>
-                        <field name="project_ids" states="choose"/>
+                    <group states="choose">
+                        <field invisible="1" name="state"/>
+                        <field name="project_ids"/>
                     </group>
-                        <group states="download">
-                            <h3> You have some errors. Please check the TXT file</h3><br/>
-                            <field name="log_binary" filename="log_filename" readonly="1"/>
-                            <field name="log_filename" invisible="1"/>
+                    <group states="error">
+                        <div>
+                            <h3>You have some errors. Please check the TXT file</h3>
+                        </div>
+                        <br/>
+                        <field filename="log_filename" name="log_binary" readonly="1"/>
+                        <field invisible="1" name="log_filename"/>
+                    </group>
+                    <group states="import">
+                        <group>
+                            <span>The project can be imported successfully</span><br/>
+                            <field name="parent_location_id"/>
+                            <field name="code"/>
                         </group>
+                    </group>
                     <footer>
-                        <button class="oe_highlight" name="validate_project" string="Validate" type="object" states="choose"/>
-                        <button class="oe_highlight" name="import_project" string="Import" type="object"/>
+                        <button class="oe_highlight" name="validate_project" states="choose" string="Validate" type="object"/>
+                        <button class="oe_highlight" name="import_project" states="import" string="Import" type="object"/>
                         <button special="cancel" string="Cancel"/>
-                    </footer> 
+                    </footer>
                 </form>
             </field>
-
         </record>
         <record id="action_report_import_opus" model="ir.actions.act_window">
             <field name="name">Import Projects</field>

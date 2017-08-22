@@ -46,7 +46,7 @@ class ProjectTask(models.Model):
         string='Customer',
         compute='_compute_partner_id',
         store=True,
-        readonly=True, )
+        readonly=True,)
 
     @api.depends('project_id')
     def _compute_partner_id(self):

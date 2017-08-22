@@ -19,15 +19,21 @@ class ImportOpusWizard(models.TransientModel):
     project_ids = fields.Selection(
         string='Projects',
         selection="get_projects",)
-    progress = fields.Integer(
-        string='Progress',
-    )
     log_filename = fields.Char(string="Name")
     log_binary = fields.Binary(string="Download File")
     state = fields.Selection(
         [('choose', 'Get'),
-         ('download', 'Download')],
+         ('error', 'Error'),
+         ('import', 'Import')],
         default='choose',)
+    partner_id = fields.Many2one(
+        'res.partner',
+    )
+    parent_location_id = fields.Many2one(
+        comodel_name='stock.location',
+        string='Parent Location',
+        domain=[('usage', '=', 'view')],)
+    code = fields.Char()
 
     @api.model
     def conexion(self, database=False):
@@ -63,21 +69,21 @@ class ImportOpusWizard(models.TransientModel):
     @api.model
     def validate_uom(self, cr):
         missing_uom = []
-        cr.execute(
-            str("""SELECT DISTINCT r.UnidadMedida FROM Recurso AS r
-            INNER JOIN NaturalezaDeRecurso AS nr
-                ON r.NaturalezaDeRecursoId = nr.NaturalezaDeRecursoId
-            WHERE nr.Alias = 'Material'"""))
-        uom_names = cr.fetchall()
-        uom_obj = self.env['product.uom']
-        length = 0
-        for uom in uom_names:
-            if length < len(uom[0]):
-                length = len(uom[0])
-        for uom in uom_names:
-            if not uom_obj.search([('name', '=', uom[0])]):
-                missing_uom.append(_('%s not exist' % uom[0].ljust(length+5)))
-        return missing_uom
+        try:
+            cr.execute(
+                str("""SELECT DISTINCT r.UnidadMedida FROM Recurso AS r
+                INNER JOIN NaturalezaDeRecurso AS nr
+                    ON r.NaturalezaDeRecursoId = nr.NaturalezaDeRecursoId
+                WHERE nr.Alias = 'Material'"""))
+            uom_names = cr.fetchall()
+            uom_obj = self.env['product.uom']
+            for uom in uom_names:
+                if not uom_obj.search([('name', '=', uom[0])]):
+                    missing_uom.append(_('%s not exist' % uom[0].ljust(8)))
+            return missing_uom
+        except:
+            raise UserError(
+                _('There are a problem in the query, Please check your data.'))
 
     @api.model
     def validate_products(self, cr):
@@ -85,7 +91,8 @@ class ImportOpusWizard(models.TransientModel):
         cr.execute(
             str("""SELECT Recurso.Clave FROM Recurso
             INNER JOIN NaturalezaDeRecurso
-                ON Recurso.NaturalezaDeRecursoId = NaturalezaDeRecurso.NaturalezaDeRecursoId
+                ON Recurso.NaturalezaDeRecursoId =
+                    NaturalezaDeRecurso.NaturalezaDeRecursoId
             WHERE NaturalezaDeRecurso.Alias = 'Material'"""))
         products_codes = cr.fetchall()
         prod_obj = self.env['product.product']
@@ -95,7 +102,8 @@ class ImportOpusWizard(models.TransientModel):
                 length = len(code[0])
         for code in products_codes:
             if not prod_obj.search([('default_code', '=', code[0])]):
-                missing_products.append(_('%s not exist' % code[0].ljust(length+5)))
+                missing_products.append(
+                    _('%s not exist' % code[0].ljust(length + 5)))
         return missing_products
 
     @api.model
@@ -109,8 +117,10 @@ class ImportOpusWizard(models.TransientModel):
             if length < len(cust[1]):
                 length = len(cust[1])
         for customer in customers:
-            if not cust_obj.search([('name', '=', customer[1])]):
-                missing_customers.append(_('%s not exist' % customer[1].ljust(length+5)))
+            self.partner_id = cust_obj.search([('name', '=', customer[1])])
+            if not self.partner_id:
+                missing_customers.append(
+                    _('%s not exist' % customer[1].ljust(length + 5)))
         return missing_customers
 
     @api.multi
@@ -135,16 +145,86 @@ class ImportOpusWizard(models.TransientModel):
                 log_data += _("   Missing Customers \n" + ("-"*18) + "\n")
                 for error in missing_customers:
                     log_data += (error + "\n")
-            if len(log_data) > 0:
-                self.log_binary = base64.b64encode(log_data)
-                self.log_filename = _("Project Errors") + '.txt'
-                self.state = 'download'
-                return {
-                    'type': 'ir.actions.act_window',
-                    'res_model': 'import.opus.wizard',
-                    'view_mode': 'form',
-                    'view_type': 'form',
-                    'res_id': self.id,
-                    'views': [(False, 'form')],
-                    'target': 'new',
-                }
+        if len(log_data) > 0:
+            self.log_binary = base64.b64encode(log_data)
+            self.log_filename = _("Project Errors") + '.txt'
+            self.state = 'error'
+            conn.close()
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'import.opus.wizard',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'res_id': self.id,
+                'views': [(False, 'form')],
+                'target': 'new',
+            }
+        else:
+            self.state = 'import'
+
+    @api.multi
+    def create_project(self):
+        project_obj = self.env['project.project']
+        project_id = project_obj.create({
+            'name': self.project_ids,
+            'partner_id': self.env.ref('base.res_partner_2').id,
+            'parent_location_id': self.parent_location_id.id,
+            'code': self.code,
+            # tener el parnet arriba
+            # 'partner_id': self.partner_id.id,
+            })
+        return project_id
+
+    @api.multi
+    def create_edt(self, project_id, cr):
+        cr.execute(
+            "SELECT MAX(nivel) FROM RenglonDePresupuesto")
+        level = cr.fetchall()
+        cr.execute(str(
+            """SELECT RenglonDePresupuestoId,RenglonPadreId,
+            Descripcion,Nivel,PrecioUnitario,
+            Cantidad,UnidadMedida,ClaveDeRenglon FROM
+            RenglonDePresupuesto WHERE nivel != -1"""))
+        edt_elements = cr.fetchall()
+        obj_wbs_element = self.env['project.wbs_element']
+        obj_wbs_concepts = self.env['project.task']
+        obj_uom = self.env['product.uom']
+        wbs_elements = {}
+        parent = False
+        for index in range(0, (level[0][0] + 1)):
+            wbs_element_level = []
+            for edt in edt_elements:
+                if edt[3] == index:
+                    wbs_element_level. append(edt)
+            for element in wbs_element_level:
+                if len(wbs_elements) > 0:
+                    parent = wbs_elements[element[1]]
+                if index == level[0][0]:
+                    obj_wbs_concepts.create({
+                        'name': element[6],
+                        'description': element[2],
+                        'project_id': project_id.id,
+                        'wbs_element_id': wbs_elements[element[1]],
+                        'unit_price': element[4],
+                        'qty': element[5],
+                        # Tener las unidades de medida arriba
+                        # 'uom_id': obj_uom.search([('name', '=', element[6])]).id,}
+                        'uom_id': self.env.ref('product.product_uom_cm').id,
+                        })
+                else:
+                    wbs_elements[element[0]] = obj_wbs_element.create({
+                        'name': element[2],
+                        'project_id': project_id.id,
+                        'parent_id': parent,
+                        'code': element[0],
+                    }).id
+
+    @api.multi
+    def import_project(self):
+        self.ensure_one()
+        conn = self.conexion(self.project_ids)
+        if conn:
+            cr = conn.cursor()
+            project_id = self.create_project()
+            self.create_edt(project_id, cr)
+        conn.close()
