@@ -80,6 +80,14 @@ class ImportOpusWizard(models.TransientModel):
             for uom in uom_names:
                 if not uom_obj.search([('name', '=', uom[0])]):
                     missing_uom.append(_('%s not exist' % uom[0].ljust(8)))
+                    uom_obj.create({
+                        'name': uom[0],
+                        'category_id':
+                        self.env.ref('product.uom_categ_wtime').id,
+                        'factor': 20.0,
+                        'factor_inv': 10.0,
+                        'rounding': .01,
+                        'uom_type': 'bigger', })
             return missing_uom
         except:
             raise UserError(
@@ -89,7 +97,7 @@ class ImportOpusWizard(models.TransientModel):
     def validate_products(self, cr):
         missing_products = []
         cr.execute(
-            str("""SELECT Recurso.Clave FROM Recurso
+            str("""SELECT Recurso.Clave, Recurso.Descripcion FROM Recurso
             INNER JOIN NaturalezaDeRecurso
                 ON Recurso.NaturalezaDeRecursoId =
                     NaturalezaDeRecurso.NaturalezaDeRecursoId
@@ -102,6 +110,7 @@ class ImportOpusWizard(models.TransientModel):
                 length = len(code[0])
         for code in products_codes:
             if not prod_obj.search([('default_code', '=', code[0])]):
+                prod_obj.create({'name': code[1]})
                 missing_products.append(
                     _('%s not exist' % code[0].ljust(length + 5)))
         return missing_products
@@ -148,7 +157,7 @@ class ImportOpusWizard(models.TransientModel):
         if len(log_data) > 0:
             self.log_binary = base64.b64encode(log_data)
             self.log_filename = _("Project Errors") + '.txt'
-            self.state = 'error'
+            self.state = 'import'
             conn.close()
             return {
                 'type': 'ir.actions.act_window',
@@ -167,7 +176,7 @@ class ImportOpusWizard(models.TransientModel):
         project_obj = self.env['project.project']
         project_id = project_obj.create({
             'name': self.project_ids,
-            'partner_id': self.env.ref('base.res_partner_2').id,
+            'partner_id': self.env.ref('base.main_partner').id,
             'parent_location_id': self.parent_location_id.id,
             'code': self.code,
             # tener el parnet arriba
@@ -191,24 +200,26 @@ class ImportOpusWizard(models.TransientModel):
         obj_uom = self.env['product.uom']
         wbs_elements = {}
         parent = False
+        count = 0
         for index in range(0, (level[0][0] + 1)):
             wbs_element_level = []
             for edt in edt_elements:
                 if edt[3] == index:
-                    wbs_element_level. append(edt)
+                    wbs_element_level.append(edt)
             for element in wbs_element_level:
                 if len(wbs_elements) > 0:
                     parent = wbs_elements[element[1]]
                 if index == level[0][0]:
                     obj_wbs_concepts.create({
-                        'name': element[6],
+                        'name': element[7],
                         'description': element[2],
                         'project_id': project_id.id,
                         'wbs_element_id': wbs_elements[element[1]],
                         'unit_price': element[4],
                         'qty': element[5],
                         # Tener las unidades de medida arriba
-                        # 'uom_id': obj_uom.search([('name', '=', element[6])]).id,}
+                        # 'uom_id': obj_uom.search(
+                        # [('name', '=', element[6])]).id,}
                         'uom_id': self.env.ref('product.product_uom_cm').id,
                         })
                 else:
@@ -220,6 +231,35 @@ class ImportOpusWizard(models.TransientModel):
                     }).id
 
     @api.multi
+    def set_resources(self, project_id, cr):
+        cr.execute(str(
+            """SELECT ConceptoClave, ComponenteDescripcion,
+            ComponenteUnidad, ComponenteCantidad, ComponenteCostoUnitario
+            FROM View_Matrices vm
+            INNER JOIN RenglonDePresupuesto rp
+            ON vm.RenglonDePresupuestoId = rp.RenglonDePresupuestoId
+            WHERE vm.ComponenteTipo = 'Material'"""))
+        resources = cr.fetchall()
+        obj_product = self.env['product.product']
+        obj_uom = self.env['product.uom']
+        for resource in resources:
+            task = project_id.task_ids.search([('name', '=', resource[0])])
+            product = obj_product.search(
+                 ['|', ('default_code', '=', resource[0]),
+                  ('name', '=ilike', resource[1])], limit=1).id
+            task.resource_ids.create({
+                'account_id': project_id.analytic_account_id.id,
+                'product_id': product,
+                'resource_type_id': self.env.ref(
+                    'task_resource.insume_material').id,
+                'uom_id': obj_uom.search([('name', '=', resource[2])]).id,
+                # 'uom_id': self.env.ref('product.product_uom_cm').id,
+                'qty': resource[3],
+                'unit_price': resource[4],
+                'task_id': task.id,
+                })
+
+    @api.multi
     def import_project(self):
         self.ensure_one()
         conn = self.conexion(self.project_ids)
@@ -227,4 +267,5 @@ class ImportOpusWizard(models.TransientModel):
             cr = conn.cursor()
             project_id = self.create_project()
             self.create_edt(project_id, cr)
+            self.set_resources(project_id, cr)
         conn.close()
