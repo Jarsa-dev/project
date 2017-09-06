@@ -22,11 +22,12 @@
                         <field invisible="1" name="log_filename"/>
                     </group>
                     <group states="import">
-                        <group>
-                            <span>The project can be imported successfully</span><br/>
-                            <field name="parent_location_id"/>
-                            <field name="code"/>
-                        </group>
+                        <div>
+                            <h3>The project can be imported successfully</h3>
+                        </div>
+                        <br/>
+                        <field name="parent_location_id"/>
+                        <field name="code"/>
                     </group>
                     <footer>
                         <button class="oe_highlight" name="validate_project" states="choose" string="Validate" type="object"/>
