@@ -55,6 +55,7 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
         res = (
             super(PurchaseRequestLineMakePurchaseOrder, self).
             _prepare_purchase_order_line(po, item))
+
         if item.product_qty > item.line_id.product_qty:
             raise exceptions.ValidationError(
                 _('The quantity must be lower than the quantity of'

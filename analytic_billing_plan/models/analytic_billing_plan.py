@@ -87,6 +87,7 @@ class AnalyticBillingPlan(models.Model):
                     'line_ids': [x for x in move_lines],
                 }
                 move_id = account_move_obj.create(move)
+                move_id.post()
                 line.write({
                     'move_id': move_id.id,
                     })
@@ -256,7 +257,7 @@ class AnalyticBillingPlan(models.Model):
     @api.model
     def create(self, vals):
         res = super(AnalyticBillingPlan, self).create(vals)
-        res.name = self.env['ir.sequence'].next_by_code('billing.request')
+        res.name = self.env.ref('__export__.ir_sequence_26').next_by_id()
         count = 1
         for line in res.analytic_billing_plan_line_ids:
             line.name = self.assign_code(res, count)

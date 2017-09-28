@@ -31,8 +31,10 @@ class AnalyticResourcePlanLine(models.Model):
             if products:
                 for product in products:
                     rec.qty_on_hand += product.qty
+            elif rec.product_id.type == 'service':
+                rec.qty_on_hand = rec.real_qty - rec.qty_consumed
             else:
-                rec.qty_on_hand = 0
+                rec.qty_on_hand = 0.0
 
     @api.multi
     def _compute_qty_consumed(self):
@@ -46,12 +48,10 @@ class AnalyticResourcePlanLine(models.Model):
                     rec.task_resource_id.project_id.
                     picking_out_id.default_location_dest_id.id),
                  ('state', '=', 'done')])
-
-            services = self.env['account.invoice.line'].search(
-                [('account_analytic_id', '=', rec.account_id.id),
+            services = self.env['account.analytic.line'].search(
+                [('account_id', '=', rec.account_id.id),
                  ('product_id', '=', rec.product_id.id),
-                 ('product_id.type', '=', 'service'),
-                 ('invoice_id.state', 'in', ['open', 'paid'])])
+                 ('product_id.type', '=', 'service')])
             if products:
                 for product in products:
                     rec.qty_consumed += product.product_uom_qty
