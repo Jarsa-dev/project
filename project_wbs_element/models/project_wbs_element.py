@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-# Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import _, api, fields, models
-from openerp.exceptions import ValidationError
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class ProjectWbsElement(models.Model):
     _name = "project.wbs_element"
-    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _inherit = ['mail.thread']
 
     code = fields.Char()
     name = fields.Char(required=True)

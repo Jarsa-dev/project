@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright <2016> <Jarsa Sistemas, S.A. de C.V.>
+# Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from openerp import api, fields, models, _
-from openerp.exceptions import UserError
+from odoo import api, fields, models
+from odoo.exceptions import ValidationError
+from odoo.tools.translate import _
 
 
 class ProjectTask(models.Model):
@@ -32,7 +33,7 @@ class ProjectTask(models.Model):
     def _check_wbs_element_assigned(self):
         for record in self:
             if record.wbs_element_id and record.wbs_element_id.child_ids:
-                raise UserError(
+                raise ValidationError(
                     _('A WBS Element that is parent'
                         ' of others cannot have'
                         ' concepts assigned.'))
