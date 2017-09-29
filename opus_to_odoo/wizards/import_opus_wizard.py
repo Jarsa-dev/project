@@ -5,7 +5,6 @@
 
 from openerp import _, api, fields, models
 from openerp.exceptions import UserError
-from os import getenv
 import pymssql
 import base64
 import sys
@@ -116,12 +115,12 @@ class ImportOpusWizard(models.TransientModel):
             cr = conn.cursor()
             missing_uom = self.validate_uom(cr)
             if missing_uom:
-                log_data += _("   Missing UoM \n" + ("-"*18) + "\n")
+                log_data += _("   Missing UoM \n" + ("-" * 18) + "\n")
                 for error in missing_uom:
                     log_data += (error + "\n")
             missing_products = self.validate_products(cr)
             if missing_products:
-                log_data += _("   Missing Products \n" + ("-"*18) + "\n")
+                log_data += _("   Missing Products \n" + ("-" * 18) + "\n")
                 for error in missing_products:
                     log_data += (error + "\n")
         if len(log_data) > 0:
@@ -162,7 +161,7 @@ class ImportOpusWizard(models.TransientModel):
                 'parent_location_id': self.parent_location_id.id,
                 'code': self.code,
                 'partner_id': self.partner_id.id,
-                })
+            })
         return project_id
 
     @api.multi
@@ -181,15 +180,28 @@ class ImportOpusWizard(models.TransientModel):
         obj_uom = self.env['product.uom']
         wbs_elements = {}
         parent = False
-        count = 0
+        code = 0
+        if obj_wbs_element.search([]):
+            code = max(map(int, obj_wbs_element.search([
+                ('parent_id', '=', False)]).mapped('code')))
         for index in range(0, (level[0][0] + 1)):
             wbs_element_level = []
             for edt in edt_elements:
                 if edt[3] == index:
                     wbs_element_level.append(edt)
             for element in wbs_element_level:
-                if len(wbs_elements) > 0:
+                if not index == 0:
                     parent = wbs_elements[element[1]]
+                    parent_element = obj_wbs_element.browse(parent)
+                    codes_elements = obj_wbs_element.search([
+                        ('parent_id', '=', parent)]).mapped('code')
+                    codes = codes_elements if codes_elements else [
+                        str(parent_element.code) + '.0']
+                    prefix = max(
+                        [int(x.split('.')[-1]) for x in codes]) + 1
+                    code = parent_element.code + '.' + str(prefix)
+                else:
+                    code += 1
                 if index == level[0][0]:
                     concept = obj_wbs_concepts.search(
                         [('name', '=', element[7])])
@@ -203,17 +215,14 @@ class ImportOpusWizard(models.TransientModel):
                             'qty': element[5],
                             'uom_id': obj_uom.search(
                                 [('name', '=', element[6])]).id
-                            })
+                        })
                 else:
-                    element_id = obj_wbs_element.search(
-                        [('code', '=', element[0])])
-                    if not element_id:
-                        wbs_elements[element[0]] = obj_wbs_element.create({
-                            'name': element[2],
-                            'project_id': project_id.id,
-                            'parent_id': parent,
-                            'code': element[0],
-                        }).id
+                    wbs_elements[element[0]] = obj_wbs_element.create({
+                        'name': element[2],
+                        'project_id': project_id.id,
+                        'parent_id': parent,
+                        'code': str(code),
+                    }).id
 
     @api.multi
     def set_resources(self, project_id, cr):
@@ -230,8 +239,8 @@ class ImportOpusWizard(models.TransientModel):
         for resource in resources:
             task = project_id.task_ids.search([('name', '=', resource[0])])
             product = obj_product.search(
-                 ['|', ('default_code', '=', resource[0]),
-                  ('name', '=ilike', resource[1])], limit=1).id
+                ['|', ('default_code', '=', resource[0]),
+                 ('name', '=ilike', resource[1])], limit=1).id
             task.resource_ids.create({
                 'account_id': project_id.analytic_account_id.id,
                 'product_id': product,
@@ -241,7 +250,7 @@ class ImportOpusWizard(models.TransientModel):
                 'qty': resource[3],
                 'unit_price': resource[4],
                 'task_id': task.id,
-                })
+            })
 
     @api.multi
     def import_project(self):
@@ -262,6 +271,4 @@ class ImportOpusWizard(models.TransientModel):
             'res_id': project_id.id,
             'type': 'ir.actions.act_window',
             'context': {
-                'edit': True,
-                }
-            }
+                'edit': True}}
