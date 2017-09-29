@@ -28,6 +28,7 @@ class ImportOpusWizard(models.TransientModel):
         default='choose',)
     partner_id = fields.Many2one(
         'res.partner',
+        string='Customer',
     )
     parent_location_id = fields.Many2one(
         comodel_name='stock.location',
@@ -36,7 +37,7 @@ class ImportOpusWizard(models.TransientModel):
     code = fields.Char()
 
     @api.model
-    def conexion(self, database=False):
+    def connect(self, database=False):
         server = self.env.user.company_id.opus_server
         username = self.env.user.company_id.opus_username
         password = self.env.user.company_id.opus_password
@@ -52,7 +53,7 @@ class ImportOpusWizard(models.TransientModel):
 
     @api.model
     def get_projects(self):
-        conn = self.conexion()
+        conn = self.connect()
         selection_data = []
         if conn:
             cr = conn.cursor()
@@ -79,7 +80,7 @@ class ImportOpusWizard(models.TransientModel):
             uom_obj = self.env['product.uom']
             for uom in uom_names:
                 if not uom_obj.search([('name', '=', uom[0])]):
-                    missing_uom.append(_('%s not exist' % uom[0].ljust(8)))
+                    missing_uom.append(_('%s' % uom[0].ljust(8)))
             return missing_uom
         except:
             raise UserError(
@@ -103,31 +104,14 @@ class ImportOpusWizard(models.TransientModel):
         for code in products_codes:
             if not prod_obj.search([('default_code', '=', code[0])]):
                 missing_products.append(
-                    _('%s not exist' % code[0].ljust(length + 5)))
+                    _('%s %s' % (code[0].ljust(length + 5), code[1])))
         return missing_products
-
-    @api.model
-    def validate_customers(self, cr):
-        missing_customers = []
-        cr.execute("SELECT ClienteId, Nombre FROM Cliente")
-        customers = cr.fetchall()
-        cust_obj = self.env['res.partner']
-        length = 0
-        for cust in customers:
-            if length < len(cust[1]):
-                length = len(cust[1])
-        for customer in customers:
-            self.partner_id = cust_obj.search([('name', '=', customer[1])])
-            if not self.partner_id:
-                missing_customers.append(
-                    _('%s not exist' % customer[1].ljust(length + 5)))
-        return missing_customers
 
     @api.multi
     def validate_project(self):
         self.ensure_one()
         log_data = ""
-        conn = self.conexion(self.project_ids)
+        conn = self.connect(self.project_ids)
         if conn:
             cr = conn.cursor()
             missing_uom = self.validate_uom(cr)
@@ -140,12 +124,6 @@ class ImportOpusWizard(models.TransientModel):
                 log_data += _("   Missing Products \n" + ("-"*18) + "\n")
                 for error in missing_products:
                     log_data += (error + "\n")
-            # Falta validar con el cliente.
-            # missing_customers = self.validate_customers(cr)
-            # if missing_customers:
-            #     log_data += _("   Missing Customers \n" + ("-"*18) + "\n")
-            #     for error in missing_customers:
-            #         log_data += (error + "\n")
         if len(log_data) > 0:
             self.log_binary = base64.b64encode(log_data)
             self.log_filename = _("Project Errors") + '.txt'
@@ -268,10 +246,22 @@ class ImportOpusWizard(models.TransientModel):
     @api.multi
     def import_project(self):
         self.ensure_one()
-        conn = self.conexion(self.project_ids)
+        conn = self.connect(self.project_ids)
         if conn:
             cr = conn.cursor()
             project_id = self.create_project()
             self.create_edt(project_id, cr)
             self.set_resources(project_id, cr)
         conn.close()
+        return {
+            'name': _('Project'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'target': 'current',
+            'res_model': 'project.project',
+            'res_id': project_id.id,
+            'type': 'ir.actions.act_window',
+            'context': {
+                'edit': True,
+                }
+            }

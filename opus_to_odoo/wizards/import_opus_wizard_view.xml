@@ -26,8 +26,9 @@
                             <h3>The project can be imported successfully</h3>
                         </div>
                         <br/>
-                        <field name="parent_location_id"/>
-                        <field name="code"/>
+                        <field name="partner_id"/>
+                        <field name="parent_location_id" attrs="{'required': [('state', '=', 'import')]}"/>
+                        <field name="code" attrs="{'required': [('state', '=', 'import')]}"/>
                     </group>
                     <footer>
                         <button class="oe_highlight" name="validate_project" states="choose" string="Validate" type="object"/>

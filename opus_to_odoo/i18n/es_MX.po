@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-18 16:50+0000\n"
-"PO-Revision-Date: 2017-08-18 16:50+0000\n"
+"POT-Creation-Date: 2017-09-18 22:02+0000\n"
+"PO-Revision-Date: 2017-09-18 22:02+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,17 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: opus_to_odoo
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:135
-#, python-format
-msgid "   Missing Customers \n"
-"\n"
-""
-msgstr "   Clientes Faltantes \n"
-"\n"
-""
-
-#. module: opus_to_odoo
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:130
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:124
 #, python-format
 msgid "   Missing Products \n"
 "\n"
@@ -36,7 +26,7 @@ msgstr "   Productos Faltantes \n"
 ""
 
 #. module: opus_to_odoo
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:125
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:119
 #, python-format
 msgid "   Missing UoM \n"
 "\n"
@@ -46,12 +36,10 @@ msgstr "   UdM Faltantes \n"
 ""
 
 #. module: opus_to_odoo
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:79
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:98
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:113
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:107
 #, python-format
-msgid "%s not exist"
-msgstr "%s no existe."
+msgid "%s %s"
+msgstr "%s %s"
 
 #. module: opus_to_odoo
 #: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
@@ -64,9 +52,19 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_code
+msgid "Code"
+msgstr "Código"
+
+#. module: opus_to_odoo
 #: model:ir.model,name:opus_to_odoo.model_res_company
 msgid "Companies"
 msgstr "Compañías"
+
+#. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_project_config_settings_company_id
+msgid "Company"
+msgstr "Compañía"
 
 #. module: opus_to_odoo
 #: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_create_uid
@@ -79,19 +77,24 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_partner_id
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: opus_to_odoo
 #: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_display_name
 msgid "Display Name"
 msgstr "Nombre desplegado"
 
 #. module: opus_to_odoo
-#: selection:import.opus.wizard,state:0
-msgid "Download"
-msgstr "Descargar"
-
-#. module: opus_to_odoo
 #: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_log_binary
 msgid "Download File"
 msgstr "Descargar Archivo"
+
+#. module: opus_to_odoo
+#: selection:import.opus.wizard,state:0
+msgid "Error"
+msgstr "Error"
 
 #. module: opus_to_odoo
 #: selection:import.opus.wizard,state:0
@@ -109,6 +112,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: opus_to_odoo
+#: selection:import.opus.wizard,state:0
 #: model:ir.ui.view,arch_db:opus_to_odoo.view_import_opus
 msgid "Import"
 msgstr "Importar"
@@ -162,7 +166,7 @@ msgid "Opus Server"
 msgstr "Servidor Opus"
 
 #. module: opus_to_odoo
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:44
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:51
 #, python-format
 msgid "Opus Server Not Found"
 msgstr "Servidor Opus No Encontrado"
@@ -179,6 +183,11 @@ msgid "Opus Username"
 msgstr "Nombre de Usuario Opus"
 
 #. module: opus_to_odoo
+#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_parent_location_id
+msgid "Parent Location"
+msgstr "Ubicación Padre"
+
+#. module: opus_to_odoo
 #: model:ir.ui.view,arch_db:opus_to_odoo.view_project_import_opus
 msgid "Password"
 msgstr "Contraseña"
@@ -187,17 +196,6 @@ msgstr "Contraseña"
 #: model:ir.model.fields,help:opus_to_odoo.field_project_config_settings_opus_password
 msgid "Password of the connection user."
 msgstr "Contraseña para la conexión."
-
-#. module: opus_to_odoo
-#: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_progress
-msgid "Progress"
-msgstr "Progreso"
-
-#. module: opus_to_odoo
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:140
-#, python-format
-msgid "Project Errors"
-msgstr "Errores"
 
 #. module: opus_to_odoo
 #: model:ir.model.fields,field_description:opus_to_odoo.field_import_opus_wizard_project_ids
@@ -215,7 +213,18 @@ msgid "State"
 msgstr "Estado"
 
 #. module: opus_to_odoo
-#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:60
+#: model:ir.ui.view,arch_db:opus_to_odoo.view_import_opus
+msgid "The project can be imported successfully"
+msgstr "El proyecto puede ser cargado sin ningún problema"
+
+#. module: opus_to_odoo
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:87
+#, python-format
+msgid "There are a problem in the query, Please check your data."
+msgstr "Hay un problema en la consulta, Por favor compruebe sus datos."
+
+#. module: opus_to_odoo
+#: code:addons/opus_to_odoo/wizards/import_opus_wizard.py:67
 #, python-format
 msgid "There are not results."
 msgstr "No se han encontrado resultados."
