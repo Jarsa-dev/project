@@ -12,10 +12,7 @@
     'website': 'https://www.odoo-community.org',
     'category': 'Warehouse Management',
     'license': 'AGPL-3',
-    'depends': [
-        'project',
-        'project_image',
-    ],
+    'depends': ['project', ],
     'data': [
         'views/project_task_view.xml',
         'views/project_wbs_element_view.xml',
