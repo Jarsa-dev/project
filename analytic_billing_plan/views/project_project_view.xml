@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="project_location_form_view" model="ir.ui.view">
-        <field name="name">project.project.form</field>
+        <field name="name">project.project.kanban</field>
         <field name="model">project.project</field>
-        <field name="inherit_id" ref="task_resource.project_project_kanban_view"/>
+        <field name="inherit_id" ref="project_task_resource.project_project_kanban_view"/>
         <field name="arch" type="xml">
-            <field name="total_charge" position="after">
+            <field name="total_project_expenses" position="after">
                 <field name="billing_project_total"/>
             </field>
             <xpath expr="//t[@name='project_expenses']" position="after">
@@ -21,7 +21,7 @@
     <record id="billing_project_project_tree_view" model="ir.ui.view">
         <field name="name">project.project.tree</field>
         <field name="model">project.project</field>
-        <field name="inherit_id" ref="task_resource.project_project_tree_view"/>
+        <field name="inherit_id" ref="project_task_resource.project_project_tree_view"/>
         <field name="arch" type="xml">
             <field name="total_project_expenses" position="after">
                 <field name="billing_project_total" string="Total Billing"/>

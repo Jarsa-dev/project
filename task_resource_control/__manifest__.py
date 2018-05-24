@@ -16,7 +16,7 @@
         'project',
         'product',
         'project_wbs_element',
-        'task_resource',
+        'project_task_resource',
         ],
 
     'data': [

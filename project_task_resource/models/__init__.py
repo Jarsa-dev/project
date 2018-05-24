@@ -10,4 +10,4 @@ from . import purchase_order_line
 # from . import purchase_request
 # from . import purchase_request_line
 from . import resource_type
-from . import task_resource
+from . import project_task_resource

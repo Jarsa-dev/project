@@ -13,9 +13,6 @@ class ProjectWbsElement(models.Model):
     total_concept_expense = fields.Float(
         string='Billing Total',
         compute='_compute_total_concept_expense')
-    total_charge = fields.Float(
-        compute="_compute_total_charges",
-        string='Total Charge')
 
     @api.multi
     def _compute_total_concept_expense(self):
@@ -31,17 +28,6 @@ class ProjectWbsElement(models.Model):
             if record.child_ids:
                 for child in record.child_ids:
                     record.total_concept_expense += child.total_concept_expense
-
-    @api.multi
-    def _compute_total_charges(self):
-        for record in self:
-            if not record.child_ids:
-                for child in record.task_ids:
-                    record.total_charge = record.total_charge + child.subtotal
-        for rec in self:
-            if rec.child_ids:
-                for child in rec.child_ids:
-                    rec.total_charge = rec.total_charge + child.total_charge
 
     @api.multi
     @api.constrains('project_id')

@@ -3,7 +3,7 @@
     <record id="view_task_form2" model="ir.ui.view">
         <field name="name">project.task.form</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="task_resource.view_task_form2"/>
+        <field name="inherit_id" ref="project_task_resource.view_task_form2"/>
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page name="Resource change history" string="Resource change history" attrs="{'invisible': [('resource_control_ids', '=', False)]}">
@@ -22,7 +22,7 @@
     <record id="view_resource_control_task_kanban" model="ir.ui.view">
         <field name="name">project.resource.control.task.kanban</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="task_resource.view_task_kanban"/>
+        <field name="inherit_id" ref="project_task_resource.view_task_kanban"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <div>

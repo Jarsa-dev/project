@@ -4,8 +4,8 @@
 from odoo import api, fields, models
 
 
-class TaskResource(models.Model):
-    _name = "task.resource"
+class ProjectTaskResource(models.Model):
+    _name = "project.task.resource"
 
     task_id = fields.Many2one(
         comodel_name='project.task',
@@ -31,8 +31,6 @@ class TaskResource(models.Model):
     resource_type_id = fields.Many2one(
         'resource.type',
         string='Resource type')
-    unit_price = fields.Float(
-        string='Unit Price',)
 
     @api.onchange('product_id')
     def onchange_product(self):
@@ -51,7 +49,6 @@ class TaskResource(models.Model):
             description += ' - ' + product.description_purchase
         self.description = description
         self.uom_id = uom_id
-        self.unit_price = self.product_id.list_price
 
     @api.model
     def default_get(self, field):
@@ -59,11 +56,8 @@ class TaskResource(models.Model):
             record_id = self.env.context['active_id']
             plan = self.env['project.wbs_element'].search(
                 [('id', '=', record_id)])
-            res = super(TaskResource, self).default_get(field)
+            res = super(ProjectTaskResource, self).default_get(field)
             res.update({'account_id': plan.analytic_account_id.id})
-            res.update(domain={
-                'account_id': plan.analytic_account_id.id
-            })
             return res
         else:
-            return super(TaskResource, self).default_get(field)
+            return super(ProjectTaskResource, self).default_get(field)

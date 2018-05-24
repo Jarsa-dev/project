@@ -3,7 +3,7 @@
     <record id="project_project_task_resource_control_kanban_view" model="ir.ui.view">
         <field name="name">project.project.task.resource.control.kanban</field>
         <field name="model">project.project</field>
-        <field name="inherit_id" ref="task_resource.project_project_kanban_view"/>
+        <field name="inherit_id" ref="project_task_resource.project_project_kanban_view"/>
         <field name="arch" type="xml">
             <field name="total_charge" position="after">
                 <field name="total_real_charge"/>
@@ -21,7 +21,7 @@
     <record id="project_project_resource_control_tree_view" model="ir.ui.view">
         <field name="name">project.project.resource_control.tree</field>
         <field name="model">project.project</field>
-        <field name="inherit_id" ref="task_resource.project_project_tree_view"/>
+        <field name="inherit_id" ref="project_task_resource.project_project_tree_view"/>
         <field name="arch" type="xml">
             <field name="total_charge" position="after">
                 <field name="total_real_charge"/>
@@ -31,7 +31,7 @@
     <record id="view_task_task_resource_control_tree2" model="ir.ui.view">
         <field name="name">project.task.resource.control.tree</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="task_resource.view_task_tree2"/>
+        <field name="inherit_id" ref="project_task_resource.view_task_tree2"/>
         <field name="arch" type="xml">
             <field name="subtotal" position="after">
                 <field name="real_subtotal" sum="real_subtotal"/>

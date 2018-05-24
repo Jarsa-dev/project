@@ -41,16 +41,9 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
                 <field name="total_project_expenses"/>
-                <field name="total_charge"/>
             </field>
             <xpath expr="//div[hasclass('o_kanban_primary_left')]" position="after">
                 <br/>
-                <t name="total" t-if="record.total_charge.value">
-                    <span>
-                        <label>Total Planned: $</label>
-                        <t t-esc="record.total_charge.value"/>
-                    </span>
-                </t>
                 <t name="project_expenses" t-if="record.total_project_expenses.value">
                     <span>
                         <label>Total Expenses: $</label>
@@ -66,7 +59,6 @@
         <field name="inherit_id" ref="project.view_project"/>
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
-                <field name="total_charge" string="Total Planned"/>
                 <field name="total_project_expenses"/>
             </field>
         </field>

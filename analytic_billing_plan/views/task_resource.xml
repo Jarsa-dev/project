@@ -15,9 +15,10 @@
     <record id="view_task_tree2" model="ir.ui.view">
         <field name="name">project.task.tree</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="task_resource.view_task_tree2"/>
+        <field name="inherit_id" ref="project_task_resource.view_task_tree2"/>
         <field name="arch" type="xml">
             <field name="total_expense" position="after">
+                <field name="unit_price"/>
                 <field name="billing_task_total"/>
             </field>
         </field>

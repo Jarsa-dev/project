@@ -2,7 +2,7 @@
 <odoo>
     <record id="view_task_resource_tree" model="ir.ui.view">
         <field name="name">task.resource.tree</field>
-        <field name="model">task.resource</field>
+        <field name="model">project.task.resource</field>
         <field name="arch" type="xml">
             <tree default_order="sequence" editable="bottom" string="Task Resource">
                 <field name="description"/>
@@ -28,9 +28,9 @@
                 <group>
                     <group class="oe_subtotal_footer oe_right" style="margin-right:10%;">
                         <field class="oe_left" name="uom_id" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
-                        <field class="oe_left" name="unit_price" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        
                         <field class="oe_left" name="qty" sum="Total qty" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
-                        <field class="oe_left" name="subtotal"/>
+                        
                     </group>
                 </group>
             </xpath>
@@ -56,13 +56,12 @@
                 <page attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="Resources" string="Resources">
                     <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="resource_ids" nolabel="1">
                         <tree default_order="sequence" editable="bottom" string="Resources">
-                            <field editable="0" name="account_id"/>
+                            <field readonly="1" invisible="1" name="account_id"/>
                             <field name="product_id" domain="[('purchase_ok', '=', True)]" required="1"/>
                             <field name="description" required="1"/>
                             <field name="resource_type_id" required="1" widget="selection"/>
                             <field name="uom_id" required="1"/>
                             <field name="qty" required="1" sum="Total qty"/>
-                            <field name="unit_price"/>
                         </tree>
                     </field>
                 </page>
@@ -78,7 +77,6 @@
                             <field name="resource_type_id" widget="selection"/>
                             <field name="uom_id" required="1"/>
                             <field name="qty" sum="Total qty"/>
-                            <field name="subtotal" sum="subtotal"/>
                         </tree>
                     </field>
                 </page>
@@ -93,7 +91,7 @@
             <field name="name" position="after">
                 <div>
                     <label>Total Planned: $</label>
-                    <field name="subtotal"/>
+                    
                 </div>
                 <div>
                     <label>Total Expense: $</label>
@@ -111,8 +109,8 @@
                 <field name ="uom_id"/>
                 <field name="qty" sum="Total Qty"/>
                 <field name="uom_id"/>
-                <field name="unit_price"/>
-                <field name="subtotal" sum="subtotal"/>
+                
+                
                 <field name="total_expense"/>
             </field>
             <field name="stage_id" position="before">

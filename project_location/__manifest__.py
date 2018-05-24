@@ -13,7 +13,7 @@
     'depends': [
         'project',
         'stock',
-        'task_resource',
+        'project_task_resource',
         'project_picking_type',
         ],
     'data': [

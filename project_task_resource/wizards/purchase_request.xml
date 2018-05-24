@@ -28,7 +28,7 @@
     </record>
     <template id="assets_backend" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/task_resource/static/js/inputs_behavior.js"></script>
+            <script type="text/javascript" src="/project_task_resource/static/js/inputs_behavior.js"></script>
         </xpath>
     </template>
     <act_window id="launch_session_wizard"

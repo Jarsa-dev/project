@@ -11,6 +11,6 @@ class ResourceType(models.Model):
     name = fields.Char(
         string='Resource type')
     task_resource_ids = fields.One2many(
-        'task.resource',
+        'project.task.resource',
         'resource_type_id',
         string='Task resource')

@@ -11,7 +11,7 @@
     'category': 'Warehouse Management',
     'license': 'AGPL-3',
     'depends': [
-        'task_resource',
+        'project_task_resource',
         'project_wbs_element',
         'account',
     ],

@@ -63,7 +63,8 @@ class WizardBillingPlan(models.TransientModel):
                     (line.name))
             else:
                 old_project = line.project_id.id
-                items.append([0, 0, self._prepare_item(line)])
+                items.append(
+                    [0, 0, self._prepare_item(line)])
         res['item_ids'] = items
         return res
 

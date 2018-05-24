@@ -15,7 +15,7 @@
     'depends': [
         'account_accountant',
         'stock',
-        'task_resource',
+        'project_task_resource',
         ],
 
     'data': [

@@ -11,11 +11,10 @@ class ProjectTask(models.Model):
     _inherit = "project.task"
 
     resource_ids = fields.One2many(
-        comodel_name='task.resource',
+        comodel_name='project.task.resource',
         inverse_name='task_id',
         string='Task Resource',
-        copy=True,
-        store=True)
+        copy=True,)
     resource_line_ids = fields.One2many(
         comodel_name='analytic.resource.plan.line',
         inverse_name='task_resource_id',
@@ -34,8 +33,6 @@ class ProjectTask(models.Model):
         string='Quantity',
         default=1,
     )
-    subtotal = fields.Float(compute='_compute_value_subtotal')
-    unit_price = fields.Float()
     total_expense = fields.Float(
         'Total Expenses', compute="_compute_total_expense")
     partner_id = fields.Many2one(
@@ -54,6 +51,8 @@ class ProjectTask(models.Model):
     @api.multi
     @api.constrains('project_id')
     def _check_project_state(self):
+        project_id = self.mapped('rec.project_id')
+        import ipdb; ipdb.set_trace()
         for rec in self:
             if rec.project_id.state == 'open' and rec.project_id.order_change:
                 raise ValidationError(
@@ -76,12 +75,6 @@ class ProjectTask(models.Model):
                 rec.total_expense = 0.0
 
     @api.multi
-    @api.depends('qty', 'unit_price')
-    def _compute_value_subtotal(self):
-        for rec2 in self:
-            rec2.subtotal = rec2.qty * rec2.unit_price
-
-    @api.multi
     def write(self, values):
         for rec in self:
             res = super(ProjectTask, self).write(values)
@@ -99,14 +92,11 @@ class ProjectTask(models.Model):
                         'uom_id': resource.uom_id.id,
                         'qty': rec.qty * resource.qty,
                         'real_qty': rec.qty * resource.qty,
-                        'subtotal': (
-                            rec.qty * resource.qty * (
-                                resource.unit_price))
                     })
             else:
                 list_item = []
                 for item in resources:
-                    if not item.purchase_request_ids and rec.state == 'draft':
+                    if rec.state == 'draft':
                         item.unlink()
                     else:
                         list_item.append(item.product_id.id)
@@ -122,9 +112,6 @@ class ProjectTask(models.Model):
                             'uom_id': resource.uom_id.id,
                             'qty': rec.qty * resource.qty,
                             'real_qty': rec.qty * resource.qty,
-                            'subtotal': (
-                                rec.qty * resource.qty * (
-                                    resource.product_id.lst_price))
                         })
         return res
 

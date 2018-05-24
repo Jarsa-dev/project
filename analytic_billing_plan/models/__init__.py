@@ -10,4 +10,4 @@ from . import project_wbs_element
 from . import project_project
 from . import res_company
 from . import res_config
-from . import task_resource
+from . import project_task_resource

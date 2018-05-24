@@ -3,12 +3,19 @@
     <record id="view_wbs_element_kanban" model="ir.ui.view">
         <field name="name">project.wbs_element.kanban</field>
         <field name="model">project.wbs_element</field>
-        <field name="inherit_id" ref="task_resource.view_wbs_element_kanban"/>
+        <field name="inherit_id" ref="project_task_resource.view_wbs_element_kanban"/>
         <field name="arch" type="xml">
-            <field name="total_charge" position="after">
+            <field name="total_concept_expense" position="after">
+                <field name="total_charge"/>
                 <field name="billing_concept_total"/>
             </field>
             <xpath expr="//t[@name='project_expenses']" position="after">
+                <t t-if="record.total_charge.value" name="total">
+                    <span>
+                        <label> Total: $</label>
+                        <t t-esc="record.total_charge.value"/>
+                    </span>
+                </t>
                 <t t-if="record.billing_concept_total.value">
                     <div>
                         <span>
@@ -24,9 +31,10 @@
         <field name="name">project.wbs_element.tree</field>
         <field name="model">project.wbs_element</field>
         <field name="field_parent">child_ids</field>
-        <field name="inherit_id" ref="task_resource.view_project_wbs_element_tree_view"/>
+        <field name="inherit_id" ref="project_task_resource.view_project_wbs_element_tree_view"/>
         <field name="arch" type="xml">
-            <field name="total_concept_expense" position="after">
+            <field name="total_concept_expense" position="after">                
+                <field name="total_charge"/>
                 <field name="billing_concept_total"/>
             </field>
         </field>

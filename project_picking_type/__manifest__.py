@@ -13,7 +13,7 @@
     'depends': [
         'project',
         'stock',
-        'task_resource',
+        'project_task_resource',
         ],
     'data': [
         'views/project_project_view.xml',

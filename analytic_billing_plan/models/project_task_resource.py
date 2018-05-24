@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 from odoo.tools.translate import _
 
 
-class TaskResource(models.Model):
+class ProjectTaskResource(models.Model):
     _inherit = 'project.task'
 
     line_billing_ids = fields.One2many('analytic.billing.plan.line', 'task_id')
@@ -25,6 +25,8 @@ class TaskResource(models.Model):
     billing_task_total = fields.Float(
         string='Billing Total',
         compute='_compute_billing_task_total',)
+    unit_price = fields.Float()
+    subtotal = fields.Float()
 
     @api.multi
     def _compute_billing_task_total(self):
@@ -61,7 +63,7 @@ class TaskResource(models.Model):
                 raise ValidationError(
                     _("You can't reset the concept because"
                         " it already has a billing request."))
-        return super(TaskResource, self).action_button_draft()
+        return super(ProjectTaskResource, self).action_button_draft()
 
     @api.multi
     def request_billing_request(self):
@@ -69,7 +71,7 @@ class TaskResource(models.Model):
             'name': 'Billing Request',
             'view_type': 'form',
             'view_mode': 'tree',
-            'view_id':  self.env.ref(
+            'view_id': self.env.ref(
                     'analytic_billing_plan.'
                     'analytic_billing_plan_line_tree_view').id,
             'res_model': 'analytic.billing.plan.line',
