@@ -326,11 +326,6 @@ msgid "Open"
 msgstr "Abierto"
 
 #. module: task_resource
-#: model:ir.model.fields,field_description:task_resource.field_project_project_order_change
-msgid "Order change"
-msgstr "Orden de Cambio"
-
-#. module: task_resource
 #: model:ir.model.fields,field_description:task_resource.field_project_task_qty
 msgid "Planned Quantity"
 msgstr "Cantidad Planeada"

@@ -391,11 +391,6 @@ msgid "Retention"
 msgstr "Retención"
 
 #. module: analytic_billing_plan
-#: model:ir.model.fields,field_description:analytic_billing_plan.field_project_project_retention_invoice_id
-msgid "Retention Invoice"
-msgstr "Factura de retención"
-
-#. module: analytic_billing_plan
 #: model:ir.ui.view,arch_db:analytic_billing_plan.view_analytic_billing_plan_filter
 #: model:ir.ui.view,arch_db:analytic_billing_plan.view_analytic_billing_plan_line_filter
 msgid "Search billing plan lines"

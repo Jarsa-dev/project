@@ -3,8 +3,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
-from odoo.tools.translate import _
 
 
 class ProjectWbsElement(models.Model):
@@ -13,6 +11,9 @@ class ProjectWbsElement(models.Model):
     total_concept_expense = fields.Float(
         string='Billing Total',
         compute='_compute_total_concept_expense')
+    total_charge = fields.Float(
+        compute="_compute_total_charges",
+        string='Total Charge')
 
     @api.multi
     def _compute_total_concept_expense(self):
@@ -30,11 +31,12 @@ class ProjectWbsElement(models.Model):
                     record.total_concept_expense += child.total_concept_expense
 
     @api.multi
-    @api.constrains('project_id')
-    def _check_project_state(self):
+    def _compute_total_charges(self):
+        for record in self:
+            if not record.child_ids:
+                for child in record.task_ids:
+                    record.total_charge = record.total_charge + child.subtotal
         for rec in self:
-            if rec.project_id.state == 'open' and rec.project_id.order_change:
-                raise ValidationError(
-                    _('A task can not be created when the '
-                      'project is in open state. For create it'
-                      ' you must go to the project and make an order change.'))
+            if rec.child_ids:
+                for child in rec.child_ids:
+                    rec.total_charge = rec.total_charge + child.total_charge

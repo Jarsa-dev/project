@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_resource_tree" model="ir.ui.view">
+        <field name="name">task.resource.tree</field>
+        <field name="model">project.task.resource</field>
+        <field name="arch" type="xml">
+            <tree default_order="sequence" editable="bottom" string="Task Resource">
+                <field name="description"/>
+                <field name="qty" sum="Total qty"/>
+                <field name="uom_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="name">project.task.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project_wbs_element.view_task_form_wbs_element"/>
+        <field name="arch" type="xml">
+            <header>
+                <button class="oe_highlight" name="action_button_draft" states="confirm" icon="fa-reply" string="Reset to Draft" type="object"/>
+                <button class="oe_highlight" confirm="Are you sure you want to confirm the current task?" name="action_button_confirm" icon="fa-thumbs-up" states="draft" string="Confirm" type="object"/>
+                <field name="state" widget="statusbar"/>
+            </header>
+            <div class="oe_button_box" name="button_box">
+                <button class="oe_stat_button" icon="fa-tasks" name="insume_explotion" string="Insume Explotion" type="object"/>
+            </div>
+            <xpath expr="//notebook" position="before">
+                <group>
+                    <group class="oe_subtotal_footer oe_right" style="margin-right:10%;">
+                        <field class="oe_left" name="uom_id" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        
+                        <field class="oe_left" name="qty" sum="Total qty" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                        
+                    </group>
+                </group>
+            </xpath>
+            <field name="tag_ids" position="replace">
+                <field name="tag_ids" attrs="{'readonly':[('state', '=', 'confirm')]}" widget="many2many_tags"/>
+            </field>
+            <field name="name" position="replace">
+                <field name="name" string="Code" placeholder="Code" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+            </field>
+            <field name="sequence" position="replace">
+                <field name="sequence" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+            </field>
+            <field name="user_id" position="replace">
+                <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="user_id"/>
+            </field>
+            <field name="project_id" position="replace">
+                <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="project_id"/>
+            </field>
+            <field name="date_deadline" position="replace">
+                <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="date_deadline"/>
+            </field>
+            <notebook position="inside">
+                <page attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="Resources" string="Resources">
+                    <field attrs="{'readonly':[('state', '=', 'confirm')]}" name="resource_ids" nolabel="1" context="{'default_account_id': analytic_account_id}">
+                        <tree editable="bottom" string="Resources">
+                            <field name="account_id"/>
+                            <field name="product_id" domain="[('purchase_ok', '=', True)]" required="1"/>
+                            <field name="description" required="1"/>
+                            <field name="resource_type_id" required="1" widget="selection"/>
+                            <field name="uom_id" required="1"/>
+                            <field name="qty" required="1" sum="Total qty"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+            <notebook position="inside">
+                <page attrs="{'invisible':[('analytic_account_id', '=', False)]}" name="total" string="Total">
+                    <field name="analytic_account_id" context="{'default_account_id': analytic_account_id}"/>
+                    <field name="resource_line_ids" nolabel="1">
+                        <tree editable="bottom" string="Task Resource">
+                            <field name="account_id"/>
+                            <field name="product_id"/>
+                            <field name="description"/>
+                            <field name="resource_type_id" widget="selection"/>
+                            <field name="uom_id" required="1"/>
+                            <field name="qty" sum="Total qty"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+    <record id="view_task_kanban" model="ir.ui.view">
+        <field name="name">project.task.kanban</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <div>
+                    <label>Total Expense: $</label>
+                    <field name="total_expense"/>
+                </div>
+            </field>
+        </field>
+    </record>
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="name">project.task.tree</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name ="uom_id"/>
+                <field name="qty" sum="Total Qty"/>
+                <field name="uom_id"/>
+                
+                
+                <field name="total_expense"/>
+            </field>
+            <field name="stage_id" position="before">
+                <field name="state"/>
+            </field>
+            <field name="stage_id" position="replace">
+                <field name="stage_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -21,7 +21,7 @@
 
     'data': [
         'data/resource_type_data.xml',
-        'security/ir.model.access.csv',
+        #'security/ir.model.access.csv',
         'wizards/project_task_confirm_wizard_view.xml',
         'wizards/purchase_request.xml',
         # 'wizards/purchase_request_line_make_purchase_order_view.xml',
@@ -32,6 +32,7 @@
         # 'views/purchase_request_view.xml',
         'views/resource_type_view.xml',
         'views/total_task_resource_view.xml',
+        'views/project_task_resource_view.xml',
     ],
     'installable': True,
 }

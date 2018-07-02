@@ -12,16 +12,11 @@ class ProjectWbsElement(models.Model):
         string='Billing Total',
         compute='_compute_billing_concept_total')
 
-    total_charge = fields.Float(
-        compute="_compute_total_charges",
-        string='Total Charge')
-
     @api.multi
     def _compute_total_charges(self):
         for record in self:
             if not record.child_ids:
                 for child in record.task_ids:
-                    import ipdb; ipdb.set_trace()
                     record.total_charge = record.total_charge + child.subtotal
         for rec in self:
             if rec.child_ids:

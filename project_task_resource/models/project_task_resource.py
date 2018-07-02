@@ -32,10 +32,6 @@ class ProjectTaskResource(models.Model):
         'resource.type',
         string='Resource type')
 
-    @api.onchange('product_id')
-    def onchange_product(self):
-        self.account_id = self.task_id.analytic_account_id
-
     @api.multi
     @api.onchange('product_id')
     def product_id_change(self):

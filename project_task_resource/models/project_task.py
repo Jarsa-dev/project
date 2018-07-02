@@ -49,18 +49,6 @@ class ProjectTask(models.Model):
                 rec.partner_id = rec.project_id.partner_id.id
 
     @api.multi
-    @api.constrains('project_id')
-    def _check_project_state(self):
-        project_id = self.mapped('rec.project_id')
-        import ipdb; ipdb.set_trace()
-        for rec in self:
-            if rec.project_id.state == 'open' and rec.project_id.order_change:
-                raise ValidationError(
-                    _('A task can not be created when the '
-                      'project is in open state. For create it'
-                      ' you must go to the project and make an order change.'))
-
-    @api.multi
     def _compute_total_expense(self):
         for rec in self:
             invoice_lines = self.env['account.invoice.line'].search([
@@ -130,7 +118,10 @@ class ProjectTask(models.Model):
             'view_type': 'form',
             'view_mode': 'tree',
             'res_model': 'analytic.resource.plan.line',
-            'domain': [('account_id', '=', self.analytic_account_id.id)],
+            'domain': [(
+                'task_resource_id', '=',
+                self.resource_line_ids[0].task_resource_id.id), (
+                'account_id', '=', self.resource_line_ids[0].account_id.id)],
             'type': 'ir.actions.act_window'}
 
     @api.multi

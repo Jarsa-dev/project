@@ -41,7 +41,3 @@ class ProjectProject(models.Model):
                         wbs_element.billing_concept_total)
             else:
                 rec.billing_project_total = 0.0
-            if (rec.advance_invoice_id and
-                    rec.advance_invoice_id.state == 'open'):
-                    rec.billing_project_total += (
-                        rec.advance_invoice_id.amount_untaxed)
