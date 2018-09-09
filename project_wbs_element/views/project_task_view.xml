@@ -26,7 +26,7 @@
                 <field name="wbs_element_id" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
             </field>
             <field name="description" position="replace">
-                <field name="description" required="1" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
+                <field name="description" attrs="{'readonly':[('state', '=', 'confirm')]}"/>
             </field>
             <field name="partner_id" position="replace">
                 <field name="partner_id"/>

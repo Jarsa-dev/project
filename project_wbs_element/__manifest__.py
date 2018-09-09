@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2015 Eficent Business and IT Consulting Services S.L.
 # Copyright 2016 Jarsa Sistemas S.A. de C.V.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
@@ -12,7 +11,9 @@
     'website': 'https://www.odoo-community.org',
     'category': 'Warehouse Management',
     'license': 'AGPL-3',
-    'depends': ['project', ],
+    'depends': [
+        'project',
+    ],
     'data': [
         'views/project_task_view.xml',
         'views/project_wbs_element_view.xml',
