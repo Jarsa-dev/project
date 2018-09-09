@@ -13,12 +13,9 @@ class ProjectTask(models.Model):
         string='WBS Element',
         copy=True
     )
-    analytic_account_id = fields.Many2one(
-        'account.analytic.account',
+    analytic_tag_id = fields.Many2one(
+        'account.analytic.tag',
         string='Analytic account')
-    wbs_element_account = fields.Many2one(
-        'account.analytic.account',
-        string='Wbs Analytic Account')
     description = fields.Text()
     state = fields.Selection(
         [('draft', 'Draft'),
@@ -44,26 +41,21 @@ class ProjectTask(models.Model):
 
     @api.model
     def create(self, values):
-        task = super(ProjectTask, self).create(values)
-        if not task.wbs_element_id:
-            name = task.name
+        rec = super().create(values)
+        if not rec.wbs_element_id:
+            name = rec.name
         else:
-            name = ('[' + task.project_id.name + '] /' +
-                    '[' + task.wbs_element_id.code + '] / ' + task.name)
-        task.analytic_account_id = (
-            task.analytic_account_id.create({
-                'company_id': self.env.user.company_id.id,
+            name = '[%s] %s - %s' % (
+                rec.project_id.name, rec.wbs_element_id.code, rec.name)
+        rec.analytic_tag_id = (
+            rec.analytic_tag_id.create({
                 'name': name,
-                'parent_id': task.wbs_element_id.analytic_account_id.id,
-                'partner_id': task.partner_id.id,
-                'account_type': 'normal'}))
-        task.wbs_element_account = (
-            task.wbs_element_id.analytic_account_id)
-        return task
+            }))
+        return rec
 
     @api.multi
     def unlink(self):
         for rec in self:
-            if rec.analytic_account_id:
-                rec.analytic_account_id.unlink()
-            return super(ProjectTask, self).unlink()
+            if rec.analytic_tag_id:
+                rec.analytic_tag_id.unlink()
+            return super().unlink()

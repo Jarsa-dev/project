@@ -47,12 +47,9 @@ class ProjectWbsElement(models.Model):
         string='Number of Documents',
         compute='_compute_count_attached_docs')
     color = fields.Integer(string='Color Index')
-    analytic_account_id = fields.Many2one(
-        'account.analytic.account',
-        string='Analytic account')
-    parent_analytic_account_id = fields.Many2one(
-        'account.analytic.account',
-        string='Parent analytic account')
+    analytic_tag_id = fields.Many2one(
+        'account.analytic.tag',
+        string='Analytic Tag')
     partner_id = fields.Many2one(
         comodel_name='res.partner',
         string='Customer',
@@ -140,32 +137,13 @@ class ProjectWbsElement(models.Model):
 
     @api.model
     def create(self, values):
-        wbs_element = super(ProjectWbsElement, self).create(values)
-        if not wbs_element.parent_id:
-            name = ('[' + str(
-                wbs_element.project_id.name.encode("utf-8")) + ']' +
-                ' / ' + str(wbs_element.code) + ' - ' + wbs_element.name)
-            wbs_element.analytic_account_id = (
-                wbs_element.analytic_account_id.create({
-                    'company_id': self.env.user.company_id.id,
-                    'name': name,
-                    'account_type': 'normal',
-                    'partner_id': wbs_element.partner_id.id,
-                    'parent_id': wbs_element.project_id.analytic_account_id.id,
-                    }))
-        else:
-            name = ('[' + str(wbs_element.project_id.name.encode("utf-8")) +
-                    '] / [' + str(wbs_element.parent_id.code) +
-                    ']/ '+str(wbs_element.code))
-            wbs_element.analytic_account_id = (
-                wbs_element.analytic_account_id.create({
-                    'company_id': self.env.user.company_id.id,
-                    'name': name,
-                    'account_type': 'normal',
-                    'partner_id': wbs_element.partner_id.id,
-                    'parent_id': wbs_element.parent_id.analytic_account_id.id,
-                    }))
-        return wbs_element
+        rec = super().create(values)
+        name = '[%s] / %s - %s' % (rec.project_id.name, rec.code, rec.name)
+        rec.analytic_tag_id = (
+            rec.analytic_tag_id.create({
+                'name': name,
+            }))
+        return rec
 
     @api.multi
     def unlink(self):
@@ -181,21 +159,17 @@ class ProjectWbsElement(models.Model):
                       "tasks. \n You must delete his tasks "
                       "before continue."))
             else:
-                rec.analytic_account_id.unlink()
-                return super(ProjectWbsElement, self).unlink()
+                rec.analytic_tag_id.unlink()
+                return super().unlink()
 
     @api.multi
     def write(self, values):
+        no_mx_rec = self
         for rec in self:
-            res = super(ProjectWbsElement, self).write(values)
-            if not rec.parent_id:
-                name = ('[' + str(
-                        rec.project_id.name.encode("utf-8")) + ']' +
-                        ' / '+str(rec.code))
-            else:
-                name = ('[' + str(rec.project_id.name.encode("utf-8")) +
-                        '] / [' + str(rec.parent_id.code) +
-                        ']/ '+str(rec.code))
-                rec.analytic_account_id.name = name
-                rec.analytic_account_id.partner_id = rec.partner_id.id
-            return res
+            if 'name' in values or 'code' in values:
+                super(ProjectWbsElement, rec).write(values)
+                name = '[%s] / %s - %s' % (
+                    rec.project_id.name, rec.code, rec.name)
+                rec.analytic_tag_id.name = name
+                no_mx_rec -= rec
+        return super(ProjectWbsElement, no_mx_rec).write(values)

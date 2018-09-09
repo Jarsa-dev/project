@@ -41,7 +41,7 @@
                         <h1>
                             <field name="code" placeholder="WBS Element Code"/>
                             <field name="name" placeholder="WBS Element Name"/>
-                            <field invisible="True" name="analytic_account_id"/>
+                            <field invisible="True" name="analytic_tag_id"/>
                         </h1>
                     </div>
                     <group>
